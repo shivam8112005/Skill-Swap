@@ -4,7 +4,7 @@ import mongoose from 'mongoose';
 import cors from 'cors';
 import userRoutes from './routes/userRoutes.js';
 import authRoutes from './routes/authRoutes.js';
-
+import skillRoutes from './routes/skillRoutes.js';
 dotenv.config();
 const app = express();
 //Middleware
@@ -14,6 +14,7 @@ app.use(cors());
 // routes
 app.use('/api/users',userRoutes);
 app.use('/api/auth',authRoutes);
+app.use('/api',skillRoutes);
 mongoose.connect(process.env.MONGO_URI).then(() => {console.log('MongoDB connected')}).catch((error) => {console.log(`MongoDB connection error: ${error}`)});
 
 // mongodb://localhost:27017/skill-swap

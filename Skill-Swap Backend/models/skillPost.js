@@ -6,10 +6,6 @@ const skillPostSchema= mongoose.Schema({
         ref: 'User',
         required: true
     },
-    skillName:{
-        type:String,
-        required:true
-    },
     type:{
         type:String,
         enum:['offer','request'],
