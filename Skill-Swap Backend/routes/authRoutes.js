@@ -16,7 +16,11 @@ router.post('/register', async(req, res) => {
         const hashedPassword = await bcrypt.hash(password, salt);
         const newUser=new User({name, email, password: hashedPassword, skills});
         await newUser.save();
-        res.status(201).json({message: 'User registered successfully'});
+        const token = jwt.sign({ id: newUser._id }, process.env.JWT_SECRET, {
+            expiresIn: "2w"
+          });
+        // res.status(201).json({token,message: 'User registered successfully'});
+        res.status(201).json( {token, message:'Register successful', user: { id: newUser._id, name: newUser.name, email: newUser.email }});
     }
     catch (error) {
         res.status(500).json({ message: 'Server error' });
@@ -33,7 +37,7 @@ router.post('/login', async(req, res)=>{
         return res.status(400).json({ message: 'Invalid credentials' });
     }
     const token = jwt.sign({ id: userExist._id }, process.env.JWT_SECRET, {
-        expiresIn: "7d"
+        expiresIn: "2w"
       });
     res.status(200).json( {token, message:'Login successful', user: { id: userExist._id, name: userExist.name, email: userExist.email }});
 })
