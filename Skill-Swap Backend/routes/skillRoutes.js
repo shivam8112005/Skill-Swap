@@ -40,5 +40,18 @@ router.post('/skillpost',verifyToken, async(req, res)=>{
         console.log(e);
         res.status(500).json({message:'Internal server error'});
       }
-})
+});
+router.get('/allskillposts', async (req, res) => {
+
+  const posts = await SkillPost.find().populate('userId', 'name email');
+  console.log(posts);
+  
+  res.status(200).json(posts);
+});
+//protected route
+router.get('/my-skillposts', verifyToken, async (req, res) => {
+  const posts = await SkillPost.find({ userId: req.user._id });
+  res.status(200).json(posts);
+});
+
 export default router;
