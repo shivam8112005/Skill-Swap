@@ -9,6 +9,8 @@ const verifyToken = async (req, res, next) => {
             return res.status(401).json({message:'Unauthorized'});
         }
         const token = authHeader.split(" ")[1];
+        // console.log(token);
+        
         const decoded = jwt.verify(token, process.env.JWT_SECRET);
         const user=await User.findById(decoded.id);
         if(!user){
@@ -18,6 +20,8 @@ const verifyToken = async (req, res, next) => {
         next();
     }catch(error){
         console.error(error);
+        // console.log('helooooooooooooooooooooooooooooooooooo');
+        
         return res.status(401).json({message:'Unauthorized'});
     }
 }

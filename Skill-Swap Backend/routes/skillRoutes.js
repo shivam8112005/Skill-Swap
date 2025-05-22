@@ -3,15 +3,16 @@ import SkillPost from '../models/skillPost.js';
 import verifyToken from '../middlewares/verifyToken.js';
 const router = express.Router();
 
-router.post('/skillpost',verifyToken, async(req, res)=>{
-  console.log('hello from skill post route');
+router.post('/postskill',verifyToken, async(req, res)=>{
+  // console.log('hello from skill post route');
   
     const {
         skillName,
         type,
         skillDescription,
         requiredSkills,
-        providedSkills
+        providedSkills,
+        barterDateTime
       } = req.body;
      
       
@@ -32,10 +33,11 @@ router.post('/skillpost',verifyToken, async(req, res)=>{
             type,
             skillDescription,
             requiredSkills,
-            providedSkills
+            providedSkills,
+            barterDateTime
         });
         await newSkillPost.save();
-        return res.status(200).json({message:'skill posted successfully.', skill:{'skillName':skillName, 'type':type, 'skillDescription':skillDescription, 'requiredSkills':requiredSkills, 'providedSkills':providedSkills}});
+        return res.status(200).json({message:'skill posted successfully.', skill:{'skillName':skillName, 'type':type, 'skillDescription':skillDescription, 'requiredSkills':requiredSkills, 'providedSkills':providedSkills, 'barterDateTime':barterDateTime}});
       }catch(e){
         console.log(e);
         res.status(500).json({message:'Internal server error'});

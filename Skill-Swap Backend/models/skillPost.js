@@ -23,6 +23,10 @@ const skillPostSchema= mongoose.Schema({
         type:String,
         required:true
     },
+     barterDateTime: {
+        type: Date,
+        required: true 
+    },
     createdAt:{
         type:Date,
         default:Date.now
