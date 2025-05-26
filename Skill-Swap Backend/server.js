@@ -5,6 +5,7 @@ import cors from 'cors';
 import userRoutes from './routes/userRoutes.js';
 import authRoutes from './routes/authRoutes.js';
 import skillRoutes from './routes/skillRoutes.js';
+import barterRoutes from './routes/barterRoutes.js';
 
 dotenv.config();
 const app = express();
@@ -16,9 +17,11 @@ app.use(cors());
 app.use('/api/users',userRoutes);
 app.use('/api/auth',authRoutes);
 app.use('/api/skill',skillRoutes);
+app.use('/api/barter',barterRoutes);
 // app.use('/api/')
 mongoose.connect(process.env.MONGO_URI).then(() => {console.log('MongoDB connected')}).catch((error) => {console.log(`MongoDB connection error: ${error}`)});
-
+//shomya123@gmail.com pass->1234
+// shivam123@gmail.com pass->1234
 // mongodb://localhost:27017/skill-swap
 mongoose.connect(process.env.MONGO_URI, {
   useNewUrlParser: true,

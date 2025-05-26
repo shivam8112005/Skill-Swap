@@ -1,0 +1,65 @@
+import express from 'express';
+import verifyToken from '../middlewares/verifyToken.js';
+import BarterRequest from '../models/BarterRequest.js';
+
+const router = express.Router();
+
+router.post('/request', verifyToken, async(req,res)=>{
+    const {receiverId, senderSkillPostId, receiverSkillPostId} = req.body;
+    try{
+        const existing=await BarterRequest.findOne({
+            sender: req.user._id,
+            receiver: receiverId,
+            senderSkillPost: senderSkillPostId,
+            receiverSkillPost: receiverSkillPostId,
+            status: 'pending'
+        });
+        if(existing) return res.status(409).json({message: 'you have already sent a request to this user for this barter.'});
+        const newReq=new BarterRequest({
+            sender:req.user._id,
+            receiver: receiverId,
+            senderSkillPost: senderSkillPostId,
+            receiverSkillPost: receiverSkillPostId,
+
+
+        })
+        await newReq.save();
+        return res.status(200).json({message: 'Barter request sent successfully.'});
+    }catch(e){
+        console.log(e);
+        return res.status(500).json({message: 'Internal server error'});
+    }
+});
+
+router.post('/respond-barter', verifyToken, async(req, res)=>{
+const {barterRequestId, response}=req.body;
+if(!['accepted', 'rejected'].includes(response)){
+    return res.status(400).json({message: 'Invalid response'});}
+    try{
+        const request=await BarterRequest.findById(barterRequestId);
+        if(!request){
+            return res.status(404).json({message: 'Barter request not found'});
+        }
+        if(request.receiver.toString()!== req.user._id.toString())
+            return res.status(403).json({message: 'You are not authorized to respond to this request.'});
+        request.status=response;
+        await request.save();
+        return res.status(200).json({message: `Barter request ${response} successfully.`});
+
+    }catch(e){
+        console.log(e);
+        return res.status(500).json({message: 'Internal server error'});
+    }
+});
+
+router.get('/my-requests', verifyToken, async(req, res)=>{
+    try{
+        const requests=await BarterRequest.find({receiver: req.user._id, status:'pending'}).populate('receiver', 'name email').populate('senderSkillPost').populate('receiverSkillPost');
+        return res.status(200).json(requests);
+    }catch(e){
+        console.log(e);
+        return res.status(500).json({message: 'Internal server error'});
+    }
+});
+
+export default router;
