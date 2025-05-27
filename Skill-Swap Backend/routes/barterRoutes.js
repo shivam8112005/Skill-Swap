@@ -54,8 +54,12 @@ if(!['accepted', 'rejected'].includes(response)){
 
 router.get('/my-requests', verifyToken, async(req, res)=>{
     try{
+        const sent = await BarterRequest.find({ sender: req.user._id })
+      .populate('receiver', 'name email')
+      .populate('senderSkillPost')
+      .populate('receiverSkillPost');
         const requests=await BarterRequest.find({receiver: req.user._id, status:'pending'}).populate('receiver', 'name email').populate('senderSkillPost').populate('receiverSkillPost');
-        return res.status(200).json(requests);
+        return res.status(200).json({requests, sent});
     }catch(e){
         console.log(e);
         return res.status(500).json({message: 'Internal server error'});
