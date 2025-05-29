@@ -4,32 +4,95 @@ import BarterRequest from '../models/BarterRequest.js';
 
 const router = express.Router();
 
+// router.post('/request', verifyToken, async(req,res)=>{
+//     const {receiverId, senderSkillPostId, receiverSkillPostId} = req.body;
+//     try{
+//         const existing=await BarterRequest.findOne({
+//             sender: req.user._id,
+//             receiver: receiverId,
+//             senderSkillPost: senderSkillPostId,
+//             receiverSkillPost: receiverSkillPostId,
+//             status: 'pending'
+//         });
+//         if(existing) return res.status(409).json({message: 'you have already sent a request to this user for this barter.'});
+//         const newReq=new BarterRequest({
+//             sender:req.user._id,
+//             receiver: receiverId,
+//             senderSkillPost: senderSkillPostId,
+//             receiverSkillPost: receiverSkillPostId,
+
+
+//         })
+//         await newReq.save();
+//         return res.status(200).json({message: 'Barter request sent successfully.'});
+//     }catch(e){
+//         console.log(e);
+//         return res.status(500).json({message: 'Internal server error'});
+//     }
+// });
+
 router.post('/request', verifyToken, async(req,res)=>{
-    const {receiverId, senderSkillPostId, receiverSkillPostId} = req.body;
+    const {receiverId, senderSkillPostId, receiverSkillPostId, newSkillPost} = req.body;
     try{
-        const existing=await BarterRequest.findOne({
+        let finalSenderSkillPostId = senderSkillPostId;
+        if(!senderSkillPostId && newSkillPost){
+            const {title, description, category, skillLevel, tags} = newSkillPost;
+            
+            if(!title || !description || !category){
+                return res.status(400).json({
+                    message: 'Title, description, and category are required for creating a skill post.'
+                });
+            }
+            const skillPost = new SkillPost({
+                title,
+                description,
+                category,
+                skillLevel: skillLevel || 'beginner',
+                tags: tags || [],
+                author: req.user._id,
+                createdAt: new Date()
+            });
+            const savedSkillPost = await skillPost.save();
+            finalSenderSkillPostId = savedSkillPost._id;
+        }
+        if(!finalSenderSkillPostId){
+            return res.status(400).json({
+                message: 'Either provide an existing skill post ID or skill post details to create a new one.'
+            });
+        }
+        const existing = await BarterRequest.findOne({
             sender: req.user._id,
             receiver: receiverId,
-            senderSkillPost: senderSkillPostId,
+            senderSkillPost: finalSenderSkillPostId,
             receiverSkillPost: receiverSkillPostId,
             status: 'pending'
         });
-        if(existing) return res.status(409).json({message: 'you have already sent a request to this user for this barter.'});
-        const newReq=new BarterRequest({
-            sender:req.user._id,
+        
+        if(existing) {
+            return res.status(409).json({
+                message: 'You have already sent a request to this user for this barter.'
+            });
+        }
+        const newReq = new BarterRequest({
+            sender: req.user._id,
             receiver: receiverId,
-            senderSkillPost: senderSkillPostId,
+            senderSkillPost: finalSenderSkillPostId,
             receiverSkillPost: receiverSkillPostId,
-
-
-        })
+        });
+        
         await newReq.save();
-        return res.status(200).json({message: 'Barter request sent successfully.'});
+        return res.status(200).json({
+            message: 'Barter request sent successfully.',
+            senderSkillPostId: finalSenderSkillPostId,
+            wasSkillPostCreated: !senderSkillPostId 
+        });
+        
     }catch(e){
         console.log(e);
         return res.status(500).json({message: 'Internal server error'});
     }
 });
+
 
 router.post('/respond-barter', verifyToken, async(req, res)=>{
 const {barterRequestId, response}=req.body;
@@ -65,5 +128,6 @@ router.get('/my-requests', verifyToken, async(req, res)=>{
         return res.status(500).json({message: 'Internal server error'});
     }
 });
+//quick match, negotiate, and cancel barter request
 
 export default router;

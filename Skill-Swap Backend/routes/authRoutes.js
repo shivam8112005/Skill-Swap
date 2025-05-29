@@ -40,5 +40,6 @@ router.post('/login', async(req, res)=>{
         expiresIn: "2w"
       });
     res.status(200).json( {token, message:'Login successful', user: { id: userExist._id, name: userExist.name, email: userExist.email }});
-})
+});
+//sign in with google
 export default router;
