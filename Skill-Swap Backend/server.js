@@ -46,7 +46,7 @@
 
 
 
-
+import chatRoutes from './routes/chatRoutes.js';
 import express from 'express';
 import dotenv from 'dotenv';
 import mongoose from 'mongoose';
@@ -73,6 +73,7 @@ app.use('/api/users', userRoutes);
 app.use('/api/auth', authRoutes);
 app.use('/api/skill', skillRoutes);
 app.use('/api/barter', barterRoutes);
+app.use('/api/chat', chatRoutes);
 
 mongoose.connect(process.env.MONGO_URI, {
   useNewUrlParser: true,
