@@ -130,6 +130,25 @@ router.get('/my-requests', verifyToken, async(req, res)=>{
         return res.status(500).json({message: 'Internal server error'});
     }
 });
+router.get('/active-barter', verifyToken, async(req, res)=>{
+    try{
+        const requests = await BarterRequest.find({
+            $or: [
+                { sender: req.user._id, status: 'accepted' },
+                { receiver: req.user._id, status: 'accepted' }
+            ]
+        })
+        .populate('sender', 'name email')
+        .populate('receiver', 'name email')
+        .populate('senderSkillPost')
+        .populate('receiverSkillPost');
+        
+        return res.status(200).json({requests});
+    }catch(e){
+        console.log(e);
+        return res.status(500).json({message: 'Internal server error'});
+    }
+});
 //quick match, negotiate, and cancel barter request
 
 export default router;
