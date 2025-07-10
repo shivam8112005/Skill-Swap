@@ -323,10 +323,17 @@ const Home = () => {
   return (
     <div className="min-h-screen bg-gray-50 flex">
       {/* Sidebar */}
-      <div className={`${isSidebarOpen ? 'translate-x-0' : '-translate-x-full'} md:translate-x-0 fixed md:relative z-30 w-64 bg-white border-r border-gray-200 transition-transform duration-300 ease-in-out h-full`}>
-        <div className="p-4 border-b border-gray-200">
-          <h2 className="text-xl font-bold text-gray-800">SkillSwap</h2>
-        </div>
+      {/* <div className={`${isSidebarOpen ? 'translate-x-0' : '-translate-x-full'} md:translate-x-0 fixed md:relative z-30 w-64 bg-white border-r border-gray-200 transition-transform duration-300 ease-in-out h-full`}>
+      
+        <div className="p-4 border-b border-gray-200 flex items-center justify-around">
+  <button
+              onClick={() => setIsSidebarOpen(!isSidebarOpen)}
+              className="p-2 rounded-lg hover:bg-gray-100"
+            >
+              <Menu className="w-6 h-6" />
+            </button>
+  <h2 className="text-xl font-bold text-gray-800">SkillSwap</h2>
+</div>
         <nav className="p-4">
           <ul className="space-y-2">
             {navigationItems.map((item) => {
@@ -351,7 +358,65 @@ const Home = () => {
             })}
           </ul>
         </nav>
-      </div>
+      </div> */}
+
+
+
+
+      <div className={`h-screen bg-white transition-all duration-300 ${isSidebarOpen ? 'w-60' : 'w-16'}`}>
+  <div className="p-4 border-b border-gray-200 flex items-center justify-between">
+    <button
+      onClick={() => setIsSidebarOpen(!isSidebarOpen)}
+      className="p-2 rounded-lg hover:bg-gray-100"
+    >
+      <Menu className="w-6 h-6" />
+    </button>
+    {isSidebarOpen && (
+      <h2 className="text-xl font-bold text-gray-800 ml-2">SkillSwap</h2>
+    )}
+  </div>
+
+  <nav className="p-4">
+    <ul className="space-y-2">
+      {navigationItems.map((item) => {
+        const Icon = item.icon;
+        return (
+          // <li key={item.id}>
+          //   <button
+          //     onClick={() => handleTabClick(item.id)}
+          //     className={`w-full flex items-center p-3 rounded-lg transition-colors ${
+          //       activeTab === item.id
+          //         ? 'bg-blue-100 text-blue-800'
+          //         : 'text-gray-600 hover:bg-gray-100'
+          //     }`}
+          //   >
+          //     {/* <Icon className="w-5 h-5" /> */}
+          //     <Icon className={`transition-all ${isSidebarOpen ? 'w-5 h-5' : 'w-7 h-7 mx-auto'}`} />
+
+          //     {isSidebarOpen && <span className="ml-3 text-sm">{item.label}</span>}
+          //   </button>
+          // </li>
+
+          <li key={item.id}>
+  <button
+    onClick={() => handleTabClick(item.id)}
+    className={`w-full ${isSidebarOpen ? 'flex items-center p-3' : 'flex justify-center p-2'} 
+      rounded-lg transition-all duration-300
+      ${activeTab === item.id ? 'bg-blue-100 text-blue-800' : 'text-gray-600 hover:bg-gray-100'}
+    `}
+  >
+    <Icon className={`transition-all ${isSidebarOpen ? 'w-5 h-5' : 'w-7 h-7'}`} />
+    {isSidebarOpen && <span className="ml-3 text-sm">{item.label}</span>}
+  </button>
+</li>
+
+        );
+      })}
+    </ul>
+  </nav>
+</div>
+
+
 
       {/* Main Content */}
       <div className="flex-1 flex flex-col">
