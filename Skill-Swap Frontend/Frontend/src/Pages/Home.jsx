@@ -149,11 +149,11 @@ const Home = () => {
       {/* Sidebar */}
       <div className={`h-screen bg-white transition-all duration-300 ${isSidebarOpen ? 'w-60' : 'w-16'}`}>
 
-  <Navigation activeTab={activeTab}
+  {/* <Navigation activeTab={activeTab}
   setActiveTab={setActiveTab}
   isSidebarOpen={isSidebarOpen}
   setIsSidebarOpen={setIsSidebarOpen}
-  setIsModalOpen={setIsModalOpen} />
+  setIsModalOpen={setIsModalOpen} /> */}
 </div>
 
 

@@ -57,7 +57,7 @@ const Navigation = (props) => {
       {navigationItems.map((item) => {
         const Icon = item.icon;
         return (
-            <Link to={item.id}>
+            <Link to={item.id==='home'?'/':item.id}>
              <li key={item.id}>
   <button
     onClick={() => handleTabClick(item.id)}

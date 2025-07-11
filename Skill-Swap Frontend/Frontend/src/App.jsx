@@ -9,6 +9,7 @@ import PostRequests from './Pages/PostRequests'
 import Profile from './Pages/Profile'
 import ViewRequests from './Pages/ViewRequests'
 import { BrowserRouter, Routes, Route, Navigate } from 'react-router-dom'
+import Layout from './Pages/Layout'
 // import Auth from './Pages/Auth'
 // import ChatRoom from './components/ChatRoom';
 // import { Routes, Route } from 'react-router-dom';
@@ -36,12 +37,18 @@ function App() {
       </Routes> */}
 
       <Routes>
-        <Route path='/' element={<Home/>}></Route>
+
+          <Route path="/" element={<Layout />}>
+          <Route index element={<Home />} />
+          <Route path="profile" element={<Profile />} />
+          <Route path="chat" element={<Chat />} />
         <Route path='/active-requests' element={<ActiveRequests/>}/>
-        <Route path='/chat' element={<Chat/>}/>
         <Route path='/send-request' element={<PostRequests/>}/>
-        <Route path='/profile' element={<Profile/>}/>
         <Route path='/view-requests' element={<ViewRequests/>}/>
+          </Route>
+        {/* <Route path='/' element={<Home/>}></Route>
+        <Route path='/chat' element={<Chat/>}/>
+        <Route path='/profile' element={<Profile/>}/> */}
 
       </Routes>
     </BrowserRouter>
