@@ -14,6 +14,7 @@ import {
   Star,
   Clock
 } from 'lucide-react';
+import Navigation from '../Components/Navigation';
 
 const Home = () => {
   const [activeTab, setActiveTab] = useState('home');
@@ -57,8 +58,8 @@ const Home = () => {
   };
 
   const renderContent = () => {
-    switch (activeTab) {
-      case 'home':
+    
+     
         return (
           <div className="space-y-8">
             <div className="text-center bg-blue-50 p-8 rounded-lg">
@@ -139,262 +140,20 @@ const Home = () => {
             </div>
           </div>
         );
-      case 'view-requests':
-        return (
-          <div></div>
-        );
-      case 'send-request':
-        return (
-          <div className="space-y-6">
-            <h1 className="text-3xl font-bold text-gray-800">Send Barter Request</h1>
-            <div className="bg-white p-6 rounded-lg border border-gray-200">
-              <div className="space-y-4">
-                <div>
-                  <label className="block text-sm font-medium text-gray-700 mb-2">What skill do you need help with?</label>
-                  <input type="text" className="w-full p-3 border border-gray-300 rounded-lg" placeholder="e.g., Web Development, Photography, Language Learning" />
-                </div>
-                <div>
-                  <label className="block text-sm font-medium text-gray-700 mb-2">What can you offer in return?</label>
-                  <input type="text" className="w-full p-3 border border-gray-300 rounded-lg" placeholder="e.g., Graphic Design, Writing, Music Lessons" />
-                </div>
-                <div>
-                  <label className="block text-sm font-medium text-gray-700 mb-2">Detailed Description</label>
-                  <textarea rows="4" className="w-full p-3 border border-gray-300 rounded-lg" placeholder="Describe your request in detail..."></textarea>
-                </div>
-                <button className="bg-blue-600 text-white px-6 py-3 rounded-lg hover:bg-blue-700 transition-colors">
-                  Send Request
-                </button>
-              </div>
-            </div>
-          </div>
-        );
-      case 'active-requests':
-        return (
-          <div className="space-y-6">
-            <h1 className="text-3xl font-bold text-gray-800">Active Barter Requests</h1>
-            <div className="grid gap-4">
-              {Array.from({ length: 3 }, (_, i) => (
-                <div key={i} className="bg-white p-6 rounded-lg border border-gray-200">
-                  <div className="flex justify-between items-start mb-4">
-                    <div>
-                      <h3 className="text-lg font-semibold text-gray-800">Photography lessons for web development</h3>
-                      <p className="text-gray-600">Partner: Sarah Johnson</p>
-                    </div>
-                    <span className="bg-blue-100 text-blue-800 px-3 py-1 rounded-full text-sm">In Progress</span>
-                  </div>
-                  <p className="text-gray-600 mb-4">Currently learning photography basics while teaching React development fundamentals.</p>
-                  <div className="flex space-x-3">
-                    <button className="bg-green-600 text-white px-4 py-2 rounded-lg hover:bg-green-700 transition-colors">
-                      Continue Chat
-                    </button>
-                    <button className="bg-gray-300 text-gray-700 px-4 py-2 rounded-lg hover:bg-gray-400 transition-colors">
-                      Mark Complete
-                    </button>
-                  </div>
-                </div>
-              ))}
-            </div>
-          </div>
-        );
-      case 'chat':
-        return (
-          <div className="space-y-6">
-            <h1 className="text-3xl font-bold text-gray-800">Chat with Active Barter</h1>
-            <div className="bg-white rounded-lg border border-gray-200 h-96">
-              <div className="p-4 border-b border-gray-200">
-                <h3 className="font-semibold text-gray-800">Sarah Johnson</h3>
-                <p className="text-sm text-gray-600">Photography lessons ↔ Web development</p>
-              </div>
-              <div className="p-4 space-y-3 h-64 overflow-y-auto">
-                <div className="flex">
-                  <div className="bg-gray-100 p-3 rounded-lg max-w-xs">
-                    <p className="text-sm">Hi! Ready for today's photography lesson?</p>
-                  </div>
-                </div>
-                <div className="flex justify-end">
-                  <div className="bg-blue-600 text-white p-3 rounded-lg max-w-xs">
-                    <p className="text-sm">Yes! I've prepared some React questions for you too.</p>
-                  </div>
-                </div>
-              </div>
-              <div className="p-4 border-t border-gray-200">
-                <div className="flex space-x-3">
-                  <input type="text" className="flex-1 p-3 border border-gray-300 rounded-lg" placeholder="Type your message..." />
-                  <button className="bg-blue-600 text-white px-4 py-3 rounded-lg hover:bg-blue-700 transition-colors">
-                    Send
-                  </button>
-                </div>
-              </div>
-            </div>
-          </div>
-        );
-      case 'profile':
-        return (
-          <div className="space-y-6">
-            <h1 className="text-3xl font-bold text-gray-800">Profile Page</h1>
-            <div className="bg-white p-6 rounded-lg border border-gray-200">
-              <div className="flex items-center space-x-4 mb-6">
-                <div className="w-20 h-20 bg-blue-100 rounded-full flex items-center justify-center">
-                  <User className="w-10 h-10 text-blue-600" />
-                </div>
-                <div>
-                  <h2 className="text-2xl font-semibold text-gray-800">John Doe</h2>
-                  <p className="text-gray-600">Web Developer & Designer</p>
-                </div>
-              </div>
-              <div className="grid md:grid-cols-2 gap-6">
-                <div>
-                  <h3 className="font-semibold text-gray-800 mb-3">Skills I Offer</h3>
-                  <div className="space-y-2">
-                    <span className="inline-block bg-blue-100 text-blue-800 px-3 py-1 rounded-full text-sm">React Development</span>
-                    <span className="inline-block bg-green-100 text-green-800 px-3 py-1 rounded-full text-sm ml-2">UI/UX Design</span>
-                    <span className="inline-block bg-purple-100 text-purple-800 px-3 py-1 rounded-full text-sm">JavaScript</span>
-                  </div>
-                </div>
-                <div>
-                  <h3 className="font-semibold text-gray-800 mb-3">Skills I Want to Learn</h3>
-                  <div className="space-y-2">
-                    <span className="inline-block bg-yellow-100 text-yellow-800 px-3 py-1 rounded-full text-sm">Photography</span>
-                    <span className="inline-block bg-red-100 text-red-800 px-3 py-1 rounded-full text-sm ml-2">Spanish</span>
-                    <span className="inline-block bg-indigo-100 text-indigo-800 px-3 py-1 rounded-full text-sm">Guitar</span>
-                  </div>
-                </div>
-              </div>
-            </div>
-          </div>
-        );
-      case 'settings':
-        return (
-          <div className="space-y-6">
-            <h1 className="text-3xl font-bold text-gray-800">Settings</h1>
-            <div className="bg-white p-6 rounded-lg border border-gray-200">
-              <div className="space-y-4">
-                <div>
-                  <label className="block text-sm font-medium text-gray-700 mb-2">Email Notifications</label>
-                  <input type="checkbox" className="mr-2" />
-                  <span className="text-gray-600">Receive notifications for new barter requests</span>
-                </div>
-                <div>
-                  <label className="block text-sm font-medium text-gray-700 mb-2">Profile Visibility</label>
-                  <select className="w-full p-3 border border-gray-300 rounded-lg">
-                    <option>Public</option>
-                    <option>Private</option>
-                  </select>
-                </div>
-                <div>
-                  <label className="block text-sm font-medium text-gray-700 mb-2">Language</label>
-                  <select className="w-full p-3 border border-gray-300 rounded-lg">
-                    <option>English</option>
-                    <option>Spanish</option>
-                    <option>French</option>
-                  </select>
-                </div>
-                <button className="bg-blue-600 text-white px-6 py-3 rounded-lg hover:bg-blue-700 transition-colors">
-                  Save Settings
-                </button>
-              </div>
-            </div>
-          </div>
-        );
-      default:
-        return <div>Content for {activeTab}</div>;
-    }
+     
+    
   };
 
   return (
     <div className="min-h-screen bg-gray-50 flex">
       {/* Sidebar */}
-      {/* <div className={`${isSidebarOpen ? 'translate-x-0' : '-translate-x-full'} md:translate-x-0 fixed md:relative z-30 w-64 bg-white border-r border-gray-200 transition-transform duration-300 ease-in-out h-full`}>
-      
-        <div className="p-4 border-b border-gray-200 flex items-center justify-around">
-  <button
-              onClick={() => setIsSidebarOpen(!isSidebarOpen)}
-              className="p-2 rounded-lg hover:bg-gray-100"
-            >
-              <Menu className="w-6 h-6" />
-            </button>
-  <h2 className="text-xl font-bold text-gray-800">SkillSwap</h2>
-</div>
-        <nav className="p-4">
-          <ul className="space-y-2">
-            {navigationItems.map((item) => {
-              const Icon = item.icon;
-              return (
-                <li key={item.id}>
-                  <button
-                    onClick={() => handleTabClick(item.id)}
-                    className={`w-full text-left p-3 rounded-lg transition-colors ${
-                      activeTab === item.id
-                        ? 'bg-blue-100 text-blue-800'
-                        : 'text-gray-600 hover:bg-gray-100'
-                    }`}
-                  >
-                    <div className="flex items-center space-x-3">
-                      <Icon className="w-5 h-5" />
-                      <span className="text-sm">{item.label}</span>
-                    </div>
-                  </button>
-                </li>
-              );
-            })}
-          </ul>
-        </nav>
-      </div> */}
-
-
-
-
       <div className={`h-screen bg-white transition-all duration-300 ${isSidebarOpen ? 'w-60' : 'w-16'}`}>
-  <div className="p-4 border-b border-gray-200 flex items-center justify-between">
-    <button
-      onClick={() => setIsSidebarOpen(!isSidebarOpen)}
-      className="p-2 rounded-lg hover:bg-gray-100"
-    >
-      <Menu className="w-6 h-6" />
-    </button>
-    {isSidebarOpen && (
-      <h2 className="text-xl font-bold text-gray-800 ml-2">SkillSwap</h2>
-    )}
-  </div>
 
-  <nav className="p-4">
-    <ul className="space-y-2">
-      {navigationItems.map((item) => {
-        const Icon = item.icon;
-        return (
-          // <li key={item.id}>
-          //   <button
-          //     onClick={() => handleTabClick(item.id)}
-          //     className={`w-full flex items-center p-3 rounded-lg transition-colors ${
-          //       activeTab === item.id
-          //         ? 'bg-blue-100 text-blue-800'
-          //         : 'text-gray-600 hover:bg-gray-100'
-          //     }`}
-          //   >
-          //     {/* <Icon className="w-5 h-5" /> */}
-          //     <Icon className={`transition-all ${isSidebarOpen ? 'w-5 h-5' : 'w-7 h-7 mx-auto'}`} />
-
-          //     {isSidebarOpen && <span className="ml-3 text-sm">{item.label}</span>}
-          //   </button>
-          // </li>
-
-          <li key={item.id}>
-  <button
-    onClick={() => handleTabClick(item.id)}
-    className={`w-full ${isSidebarOpen ? 'flex items-center p-3' : 'flex justify-center p-2'} 
-      rounded-lg transition-all duration-300
-      ${activeTab === item.id ? 'bg-blue-100 text-blue-800' : 'text-gray-600 hover:bg-gray-100'}
-    `}
-  >
-    <Icon className={`transition-all ${isSidebarOpen ? 'w-5 h-5' : 'w-7 h-7'}`} />
-    {isSidebarOpen && <span className="ml-3 text-sm">{item.label}</span>}
-  </button>
-</li>
-
-        );
-      })}
-    </ul>
-  </nav>
+  <Navigation activeTab={activeTab}
+  setActiveTab={setActiveTab}
+  isSidebarOpen={isSidebarOpen}
+  setIsSidebarOpen={setIsSidebarOpen}
+  setIsModalOpen={setIsModalOpen} />
 </div>
 
 
