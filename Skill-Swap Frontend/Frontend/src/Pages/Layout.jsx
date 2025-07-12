@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { Outlet } from 'react-router-dom';
+import { Outlet, useNavigate } from 'react-router-dom';
 // import Navigation from './Components/Navigation';
 import Navigation from '../Components/Navigation';
 import { Menu, User, X } from 'lucide-react';
@@ -8,7 +8,15 @@ const Layout = () => {
     const [activeTab, setActiveTab] = useState('home');
     const [isSidebarOpen, setIsSidebarOpen] = useState(false);
     const [isModalOpen, setIsModalOpen] = useState(false);
+    const navigate = useNavigate()
+    const handleClick=()=>{
+        // console.log(document.cookie," dsfhgweukfhierhngherkuhgijeriogjpoerkg;oerlgergherh");
+        console.log( document.cookie,' ejafbioewhfiohewiofhioewnfkl');
+        
+        if(!document.cookie)navigate('/login-signup');
+            else navigate('/profile');
 
+    }
     return (
         <div className="min-h-screen bg-gray-50 flex">
             {/* Sidebar */}
@@ -37,7 +45,7 @@ const Layout = () => {
                             {activeTab.replace('-', ' ')}
                         </h1>
                         <div className="flex items-center space-x-4">
-                            <button className="p-2 rounded-lg hover:bg-gray-100">
+                            <button className="p-2 rounded-lg hover:bg-gray-100" onClick={handleClick}>
                                 <User className="w-6 h-6 text-gray-600" />
                             </button>
                         </div>

@@ -26,7 +26,7 @@ const Navigation = (props) => {
     { id: 'chat', label: 'Chat with Active Barter', icon: MessageCircle },
     { id: 'profile', label: 'Profile Page', icon: User },
     { id: 'text-quiz', label: 'Summarize Text & Generate Quiz', icon: FileText },
-    { id: 'settings', label: 'Settings', icon: Settings }
+    // { id: 'settings', label: 'Settings', icon: Settings }
   ];
 
   const handleTabClick = (tabId) => {
