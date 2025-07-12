@@ -1,5 +1,5 @@
 import express from 'express';
-import ChatSession from '../models/ChatSession.js';
+import ChatSession from '../models/chat.model.js';
 import BarterRequest from '../models/BarterRequest.js';
 import verifyToken from '../middleware/verifyToken.js';
 
