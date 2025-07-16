@@ -96,8 +96,16 @@ app.use(cookieParser());
 
 const server = http.createServer(app); // <---- this creates the HTTP server
 const io = new Server(server, {
-  cors: { origin: 'http://localhost:5173' }
+ cors: {
+    origin: "http://localhost:5173",
+    credentials: true,
+    transports: ["websocket", "polling"],
+  },
+  path: "/socket.io",
 });
+
+const userSocketMap = {};
+
 
 app.use(express.json());
 app.use('/api/users', userRoutes);
@@ -105,24 +113,29 @@ app.use('/api/auth', authRoutes);
 app.use('/api/skill', skillRoutes);
 app.use('/api/barter', barterRoutes);
 app.use('/api/chat', chatRoutes);
-
-app.get('/', (req, res) => {
-  res.send('API is running............');
+app.get("/", (req, res) => {
+  res.send("API is running............");
 });
-io.on('connection', (socket) => {
+io.on("connection", (socket) => {
+  const userId = socket.handshake.query.userId;
+
+  if (userId) userSocketMap[userId] = socket.id;
+
+  io.emit("getOnlineUser", Object.keys(userSocketMap));
+
   console.log(`New client connected: ${socket.id}`);
 
-  socket.on('join_room', (roomId) => {
+  socket.on("join_room", (roomId) => {
     socket.join(roomId);
     console.log(`Socket ${socket.id} joined room ${roomId}`);
   });
 
-  socket.on('send_message', (data) => {
-    console.log('Message received:', data);
-    io.to(data.roomId).emit('receive_message', data);
+  socket.on("send_message", (data) => {
+    console.log("Message received:", data);
+    io.to(data.roomId).emit("receive_message", data);
   });
 
-  socket.on('disconnect', () => {
+  socket.on("disconnect", () => {
     console.log(`Client disconnected: ${socket.id}`);
   });
 });
