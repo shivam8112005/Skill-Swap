@@ -21,7 +21,6 @@ const LoginSignup = () => {
     })
     const [errors, setErrors] = useState({})
     const [isLoading, setIsLoading] = useState(false)
-
     const features = [
         {
             icon: Users,
