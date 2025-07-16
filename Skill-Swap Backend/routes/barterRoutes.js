@@ -6,8 +6,6 @@ import SkillPost from '../models/skillPost.js';
 
 const router = express.Router();
 
-
-
 router.get('/getBarter', verifyToken, async (req, res) => {
     try {
         const barter = await SkillPost.find()
@@ -21,7 +19,6 @@ router.get('/getBarter', verifyToken, async (req, res) => {
         console.log(error)        
     }
 })
-
 
 router.post('/request', verifyToken, async (req, res) => {
     const { receiverId, senderSkillPostId, receiverSkillPostId, newSkillPost } = req.body;

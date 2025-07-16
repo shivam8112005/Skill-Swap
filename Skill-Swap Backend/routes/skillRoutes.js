@@ -6,16 +6,14 @@ const router = express.Router();
 router.post('/postskill',verifyToken, async(req, res)=>{
   // console.log('hello from skill post route');
     const {
-        skillName,
         type,
         skillDescription,
         requiredSkills,
         providedSkills,
         barterDateTime
       } = req.body;
-     
-      try{
-        if( !type){
+     try{
+        if(!type){
             return res.status(400).json({message:'Please fill all the fields 1'});
         }
         if(type==='offer' && !requiredSkills){
@@ -24,7 +22,6 @@ router.post('/postskill',verifyToken, async(req, res)=>{
         }
         if(type==='request' && !providedSkills){
             return res.status(400).json({message:'Please fill all the fields 3'});
-
         }
         const newSkillPost = new SkillPost({
             userId: req.user._id, 
