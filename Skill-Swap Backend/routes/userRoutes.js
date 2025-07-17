@@ -5,16 +5,21 @@ import verifyToken from '../middlewares/verifyToken.js';
 const router = express.Router();
 router.post('/register', registerUser);
 router.get('/userprofile', verifyToken, async(req, res) => {
-    const user = await User.findById( req.user._id);
+   const userId=req.user.id?req.user.id:req.user._id;
+  console.log(userId);
+  
+    const user = await User.findById( userId);
+    console.log(user);
+    
     
     return res.status(200).json({ user: user })
 })
 router.put('/profileUpdate', verifyToken, async (req, res) => {
   try {
     const { skills, available, private: isPrivate } = req.body;
-
+    const userId=req.user.id?req.user.id:req.user._id;
     const updatedUser = await User.findByIdAndUpdate(
-      req.user._id,
+      userId,
       {
         skills: skills || [],
         available: available || [],

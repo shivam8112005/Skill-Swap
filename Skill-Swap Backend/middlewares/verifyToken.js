@@ -32,7 +32,9 @@ import jwt from 'jsonwebtoken'
 // import { ApiError } from './ApiError.js'
 
  const verifyToken = (req, res, next) => {
+
     const token = req.cookies.token
+    console.log(token);
     
     if (!token) {
         throw new Error(401, 'Unautorized')
@@ -40,8 +42,12 @@ import jwt from 'jsonwebtoken'
     
     jwt.verify(token, process.env.JWT_SECRET, (err, user) => {
         if (err) {
+            console.log('error in mw');
+            
             return new Error(401, 'Unauthorized')
         }
+        console.log(user);
+        
         req.user = user
         next()
     })

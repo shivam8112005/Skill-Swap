@@ -86,18 +86,31 @@ const LoginSignup = () => {
     }
     async function registerUser() {
   try {
-    const response = await axios.post(
-      "http://localhost:5000/api/auth/register",
-      {
-         name: formData.username,    // your backend expects 'name'
+    // const response = await axios.post(
+    //   "http://localhost:5000/api/auth/register",
+    //   {
+    //      name: formData.username,    // your backend expects 'name'
+    //       email: formData.email,
+    //       password: formData.password
+    //   }
+    // );
+    const response=await fetch("http://localhost:5000/api/auth/register", {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json'
+                },
+                credentials: 'include',
+                body: JSON.stringify({
+                     name: formData.username,    // your backend expects 'name'
           email: formData.email,
           password: formData.password
-      }
-    );
+                }),
+            });
     if(response.data.message==='User already exists'){
         alert('User already exists')
     }
     console.log("Register successful:", response.data);
+    return response
     // You can use response.data.token, etc.
   } catch (error) {
     console.error("Error registering user:", error.response?.data || error.message);
@@ -106,16 +119,22 @@ const LoginSignup = () => {
 
  async function loginUser() {
   try {
-    const response = await axios.post(
-      "http://localhost:5000/api/auth/login",
-      {
-           
+    const response =  await fetch("http://localhost:5000/api/auth/login", {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json'
+                },
+                credentials: 'include',
+                body: JSON.stringify({
+                     name: formData.username,    // your backend expects 'name'
           email: formData.email,
           password: formData.password
-      }
-    );
-    return response;
+                }),
+            });
+
+   
     console.log("Register successful:", response.data);
+    return response;
     
   } catch (error) {
     console.error("Error registering user:", error.response?.data || error.message);
@@ -130,7 +149,7 @@ const LoginSignup = () => {
 
         // Simulate API call
         if(!isLogin){
-            console.log("login");
+            console.log("signup 12345");
             
            if( registerUser().status ==200 |201){
             navigate('/')
