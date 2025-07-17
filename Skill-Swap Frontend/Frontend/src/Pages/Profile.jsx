@@ -75,6 +75,7 @@ import {
   Shield,
   CheckCircle,
   AlertCircle,
+  LogOut
 } from "lucide-react"
 
 const Profile = () => {
@@ -100,8 +101,16 @@ const Profile = () => {
 
   // Fetch user profile data
   useEffect(() => {
-    fetchUserProfile()
-  }, [])
+  //  const tokenExists = document.cookie.includes("token");
+  if (getCookie("token")) {
+    fetchUserProfile();
+  }
+  }, []);
+   function getCookie(name){
+  const value = `; ${document.cookie}`;
+  const parts = value.split(`; ${name}=`);
+  if (parts.length === 2) return parts.pop().split(';').shift();
+}
 
   const fetchUserProfile = async () => {
     try {
@@ -134,7 +143,13 @@ const Profile = () => {
       setLoading(false)
     }
   }
-
+const handleLogout=async () => {
+    await fetch("http://localhost:5000/api/users/logout", {
+      method: "GET",
+      credentials: "include", // Important to include cookies
+    });
+    window.location.href = "/login-signup"; // Navigate after logout
+  }
   const handleEditToggle = () => {
     if (isEditing) {
       // Reset edit data to original data
@@ -272,13 +287,26 @@ const Profile = () => {
                   </div>
                 </div>
               </div>
-              <button
+               <div className="flex-col justify-content-evenly">
+                   <button
                 onClick={handleEditToggle}
                 className="bg-white/20 backdrop-blur-sm hover:bg-white/30 text-white px-6 py-3 rounded-xl font-semibold transition-all duration-300 flex items-center space-x-2"
               >
                 {isEditing ? <X className="w-5 h-5" /> : <Edit3 className="w-5 h-5" />}
                 <span>{isEditing ? "Cancel" : "Edit Profile"}</span>
               </button>
+
+               <button
+                onClick={handleLogout}
+                className="m-auto my-2 bg-white backdrop-blur-sm hover:bg-white/30 text-red-400 px-6 py-3 rounded-xl font-semibold transition-all duration-300 flex items-center space-x-2"
+              >
+                {/* {isEditing ? <X className="w-5 h-5" /> : <Edit3 className="w-5 h-5" />} */}
+                <LogOut/>
+                <span>Logout</span>
+              </button>
+              </div>
+             
+              
             </div>
           </div>
 

@@ -34,4 +34,15 @@ router.put('/profileUpdate', verifyToken, async (req, res) => {
     return res.status(500).json({ message: "Failed to update profile" });
   }
 });
+
+router.get("/logout", (req, res) => {
+  res.clearCookie("token",{
+    secure: true,
+    sameSite: "None",
+    path: "/",     
+  });
+  const res1=res.status(200).json({ message: "Logged out successfully" });
+  console.log(res1, " sjfbseiubfuewbj hiiiiiiiiiiiiiiiiiiii");
+  
+});
 export default router;
