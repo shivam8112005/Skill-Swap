@@ -123,6 +123,7 @@ import {
   RefreshCw,
   AlertCircle,
 } from "lucide-react"
+import { useNavigate } from "react-router-dom"
 
 const ViewRequests = () => {
   const [loading, setLoading] = useState(true)
@@ -131,6 +132,7 @@ const ViewRequests = () => {
   const [currentPage, setCurrentPage] = useState(1)
   const [searchTerm, setSearchTerm] = useState("")
   const [filterType, setFilterType] = useState("all")
+  const navigate=useNavigate();
   const itemsPerPage = 6
 
   useEffect(() => {
@@ -165,6 +167,10 @@ const ViewRequests = () => {
     } finally {
       setLoading(false)
     }
+  }
+
+  const viewDetails= async(id)=>{
+     navigate(`/skillpost/${id}`);
   }
 
   // Filter and search functionality
@@ -351,7 +357,7 @@ const ViewRequests = () => {
                         <MessageCircle className="w-4 h-4" />
                         <span>Respond</span>
                       </button>
-                      <button className="bg-gray-100 hover:bg-gray-200 text-gray-700 px-6 py-2 rounded-xl transition-colors duration-200 flex items-center space-x-2">
+                      <button onClick={()=>viewDetails(item._id)} className="bg-gray-100 hover:bg-gray-200 text-gray-700 px-6 py-2 rounded-xl transition-colors duration-200 flex items-center space-x-2">
                         <Eye className="w-4 h-4" />
                         <span>View Details</span>
                       </button>

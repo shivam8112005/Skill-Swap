@@ -50,5 +50,16 @@ router.get('/my-skillposts', verifyToken, async (req, res) => {
   const posts = await SkillPost.find({ userId: req.user._id });
   res.status(200).json(posts);
 });
+router.get('/skillpost/:id', async (req, res) => {
+  try {
+     const skillPost = await SkillPost.findById(req.params.id).populate('userId', 'name email');
+    if (!skillPost) {
+      return res.status(404).json({ message: 'Skill post not found' });
+    }
+    return res.status(200).json(skillPost);
+  } catch (error) {
+    res.status(500).json({ message: 'Server error', error });
+  }
+});
 
 export default router;
