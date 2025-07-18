@@ -45,4 +45,25 @@ router.get("/logout", (req, res) => {
   console.log(res1, " sjfbseiubfuewbj hiiiiiiiiiiiiiiiiiiii");
   
 });
+
+router.get('/profile/:id',async(req,res)=>{
+  try{
+
+    const id=req.params.id;
+    const user=await User.findById(id);
+     if (!user) {
+      return res.status(404).json({ message: 'User not found' });
+    }
+
+    // If user is private, don't return data (unless it’s the same logged-in user)
+    if (user.private) {
+      return res.status(403).json({ message: 'This user profile is private' });
+    }
+     return res.status(200).json(user);
+  }catch(e){
+    res.status(500).json({ message: 'Server error', e });
+  }
+
+
+})
 export default router;
