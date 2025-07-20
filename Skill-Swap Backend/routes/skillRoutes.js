@@ -6,6 +6,7 @@ const router = express.Router();
 router.post('/postskill',verifyToken, async(req, res)=>{
   // console.log('hello from skill post route');
     const {
+      
         type,
         skillDescription,
         requiredSkills,
@@ -24,7 +25,7 @@ router.post('/postskill',verifyToken, async(req, res)=>{
             return res.status(400).json({message:'Please fill all the fields 3'});
         }
         const newSkillPost = new SkillPost({
-            userId: req.user._id, 
+            userId: req.user._id?req.user._id:req.user.id, 
             type,
             skillDescription,
             requiredSkills,
@@ -32,7 +33,7 @@ router.post('/postskill',verifyToken, async(req, res)=>{
             barterDateTime
         });
         await newSkillPost.save();
-        return res.status(200).json({message:'skill posted successfully.', skill:{'skillName':skillName, 'type':type, 'skillDescription':skillDescription, 'requiredSkills':requiredSkills, 'providedSkills':providedSkills, 'barterDateTime':barterDateTime}});
+        return res.status(200).json({message:'skill posted successfully.', skill:{ 'type':type, 'skillDescription':skillDescription, 'requiredSkills':requiredSkills, 'providedSkills':providedSkills, 'barterDateTime':barterDateTime}});
       }catch(e){
         console.log(e);
         res.status(500).json({message:'Internal server error'});
