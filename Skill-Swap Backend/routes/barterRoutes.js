@@ -67,7 +67,7 @@ router.post('/request', verifyToken, async (req, res) => {
             });
         }
         const newReq = new BarterRequest({
-            sender: req.user._id,
+            sender: req.user.id,
             receiver: receiverId,
             senderSkillPost: finalSenderSkillPostId,
             receiverSkillPost: receiverSkillPostId,

@@ -32,7 +32,7 @@ router.post('/postskill',verifyToken, async(req, res)=>{
             barterDateTime
         });
         await newSkillPost.save();
-        return res.status(200).json({message:'skill posted successfully.', skill:{ 'type':type, 'skillDescription':skillDescription, 'requiredSkills':requiredSkills, 'providedSkills':providedSkills, 'barterDateTime':barterDateTime}});
+        return res.status(200).json({message:'skill posted successfully.', skill:newSkillPost});
       }catch(e){
         console.log(e);
         res.status(500).json({message:'Internal server error'});
