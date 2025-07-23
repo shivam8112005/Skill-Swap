@@ -111,11 +111,11 @@ router.post('/respond-barter', verifyToken, async (req, res) => {
 
 router.get('/my-requests', verifyToken, async (req, res) => {
     try {
-        const sent = await BarterRequest.find({ sender: req.user._id })
+        const sent = await BarterRequest.find({ sender: req.user.id })
             .populate('receiver', 'name email')
             .populate('senderSkillPost')
             .populate('receiverSkillPost');
-        const requests = await BarterRequest.find({ receiver: req.user._id, status: 'pending' }).populate('receiver', 'name email').populate('senderSkillPost').populate('receiverSkillPost');
+        const requests = await BarterRequest.find({ receiver: req.user.id, status: 'pending' }).populate('receiver', 'name email').populate('senderSkillPost').populate('receiverSkillPost');
         return res.status(200).json({ requests, sent });
     } catch (e) {
         console.log(e);
