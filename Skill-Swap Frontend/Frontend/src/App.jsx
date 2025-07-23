@@ -13,6 +13,7 @@ import Layout from './Pages/Layout'
 import LoginSignup from './Pages/LoginSignup'
 import SkillPostDetail from './Pages/SkillPostDetail'
 import UserProfile from './Pages/UserProfile'
+import MyRequests from './Pages/MyRequests'
 // import Auth from './Pages/Auth'
 // import ChatRoom from './components/ChatRoom';
 // import { Routes, Route } from 'react-router-dom';
@@ -51,6 +52,7 @@ function App() {
             <Route path='/login-signup' element={<LoginSignup />} />
             <Route path="/skillpost/:id" element={<SkillPostDetail />} />
             <Route path="/profile/:id" element={<UserProfile />} />
+            <Route path="/my-requests" element={<MyRequests />} />
           </Route>
           {/* <Route path='/' element={<Home/>}></Route>
         <Route path='/chat' element={<Chat/>}/>
