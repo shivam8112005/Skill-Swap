@@ -6,7 +6,7 @@ import SkillPost from '../models/skillPost.js';
 
 const router = express.Router();
 
-router.get('/getBarter', verifyToken, async (req, res) => {
+router.get('/getBarter', async (req, res) => {
     try {
         const barter = await SkillPost.find()
         if (barter) {
