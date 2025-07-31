@@ -144,6 +144,30 @@ router.get('/active-barter', verifyToken, async (req, res) => {
         return res.status(500).json({ message: 'Internal server error' });
     }
 });
+
+
+router.put('/request/:id', async (req, res) => {
+  const { id } = req.params;
+  const { status } = req.body;
+
+  try {
+    const request = await BarterRequest.findByIdAndUpdate(
+      id,
+      { status },
+      { new: true }
+    );
+
+    if (!request) {
+      return res.status(404).json({ message: "Request not found" });
+    }
+
+    res.json(request);
+  } catch (error) {
+    res.status(500).json({ message: "Server error" });
+  }
+});
+
+
 //quick match, negotiate, and cancel barter request
 
 export default router;
