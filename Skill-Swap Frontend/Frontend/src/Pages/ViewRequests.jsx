@@ -19,6 +19,9 @@ import {
   CheckCircle,
 } from "lucide-react"
 import { useNavigate } from "react-router-dom"
+// import jwtDecode from "jwt-decode";
+import { jwtDecode } from "jwt-decode";
+
 
 const ViewRequests = () => {
   const [loading, setLoading] = useState(true)
@@ -47,7 +50,29 @@ const ViewRequests = () => {
 
   useEffect(() => {
     fetchBarter()
-  }, [])
+  }, []);
+
+
+    
+
+ const getUserFromCookie = () => {
+  const token = document.cookie
+    .split("; ")
+    .find(row => row.startsWith("token="))
+    ?.split("=")[1];
+
+  if (!token) return null;
+
+  try {
+    return jwtDecode(token);
+  } catch (err) {
+    console.error("Invalid token", err);
+    return null;
+  }
+};
+
+
+  const user = getUserFromCookie();
 
   const fetchBarter = async () => {
     try {
@@ -163,6 +188,8 @@ const ViewRequests = () => {
     }
   }
 
+
+
   const handlePageChange = (page) => {
     setCurrentPage(page)
     window.scrollTo({ top: 0, behavior: "smooth" })
@@ -205,7 +232,7 @@ const ViewRequests = () => {
       setSendingRequest((prev) => ({ ...prev, [selectedPost._id]: true }))
 
       const requestData = {
-        
+
         receiverId: selectedPost.userId,
         receiverSkillPostId: selectedPost._id,
       }
@@ -439,7 +466,7 @@ const ViewRequests = () => {
                         onClick={() =>
                           handleSendRequest(item)
                          }
-                        disabled={sendingRequest[item._id]}
+                        disabled={ sendingRequest[item._id] || item.userId === user._id}
                         className="bg-blue-600 hover:bg-blue-700 disabled:opacity-50 disabled:cursor-not-allowed text-white px-6 py-2 rounded-xl transition-colors duration-200 flex items-center space-x-2"
                       >
                         {sendingRequest[item._id] ? (
