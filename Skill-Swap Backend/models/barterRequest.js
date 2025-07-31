@@ -20,6 +20,9 @@ status:{
 createdAt:{
     type:Date,
     default:Date.now
+},
+acceptedAt: {
+  type: Date,
 }
 });
 export default mongoose.model('BarterRequest',barterRequestSchema);

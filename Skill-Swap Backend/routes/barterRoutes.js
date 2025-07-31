@@ -125,44 +125,83 @@ router.get('/my-requests', verifyToken, async (req, res) => {
         return res.status(500).json({ message: 'Internal server error' });
     }
 });
-router.get('/active-barter', verifyToken, async (req, res) => {
-    try {
-        const requests = await BarterRequest.find({
-            $or: [
-                { sender: req.user._id, status: 'accepted' },
-                { receiver: req.user._id, status: 'accepted' }
-            ]
-        })
-            .populate('sender', 'name email')
-            .populate('receiver', 'name email')
-            .populate('senderSkillPost')
-            .populate('receiverSkillPost');
+// router.get('/active-barter', verifyToken, async (req, res) => {
+//     try {
+//         const requests = await BarterRequest.find({
+//             $or: [
+//                 { sender: req.user._id, status: 'accepted' },
+//                 { receiver: req.user._id, status: 'accepted' }
+//             ]
+//         })
+//             .populate('sender', 'name email')
+//             .populate('receiver', 'name email')
+//             .populate('senderSkillPost')
+//             .populate('receiverSkillPost');
 
-        return res.status(200).json({ requests });
-    } catch (e) {
-        console.log(e);
-        return res.status(500).json({ message: 'Internal server error' });
-    }
-});
+//         return res.status(200).json({ requests });
+//     } catch (e) {
+//         console.log(e);
+//         return res.status(500).json({ message: 'Internal server error' });
+//     }
+// });
 
 
 router.put('/request/:id', async (req, res) => {
-  const { id } = req.params;
+//   const { id } = req.params;
+//   const { status } = req.body;
+
+//   try {
+//     const request = await BarterRequest.findByIdAndUpdate(
+//       id,
+//       { status },
+//       { new: true }
+//     );
+
+//     if (!request) {
+//       return res.status(404).json({ message: "Request not found" });
+//     }
+
+//     res.json(request);
+//   } catch (error) {
+//     res.status(500).json({ message: "Server error" });
+//   }
+
+
+const { id } = req.params;
   const { status } = req.body;
 
   try {
-    const request = await BarterRequest.findByIdAndUpdate(
-      id,
-      { status },
-      { new: true }
-    );
-
+    const request = await BarterRequest.findById(id);
     if (!request) {
       return res.status(404).json({ message: "Request not found" });
     }
 
+    request.status = status;
+    if (status === 'accepted') {
+      request.acceptedAt = new Date();
+    }
+
+    await request.save();
+
     res.json(request);
   } catch (error) {
+    console.error("Error updating request:", error);
+    res.status(500).json({ message: "Server error" });
+  }
+});
+
+router.get('/active', async (req, res) => {
+  try {
+    const threeDaysAgo = new Date(Date.now() - 3 * 24 * 60 * 60 * 1000); // 3 days in milliseconds
+
+    const activeBarters = await BarterRequest.find({
+      status: 'accepted',
+      acceptedAt: { $gte: threeDaysAgo },
+    });
+
+    res.json(activeBarters);
+  } catch (error) {
+    console.error("Error fetching active barters:", error);
     res.status(500).json({ message: "Server error" });
   }
 });
