@@ -47,7 +47,7 @@ router.get('/allskillposts', async (req, res) => {
 });
 //protected route
 router.get('/my-skillposts', verifyToken, async (req, res) => {
-  const posts = await SkillPost.find({ userId: req.user.id });
+  const posts = await SkillPost.find({ userId: req.user.id?req.user.id:req.user._id });
   console.log("posts: ",posts);
   
  return res.status(200).json(posts);

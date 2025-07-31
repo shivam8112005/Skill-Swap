@@ -54,7 +54,7 @@ router.post('/request', verifyToken, async (req, res) => {
             });
         }
         const existing = await BarterRequest.findOne({
-            sender: req.user._id,
+            sender: req.user._id? req.user._is:req.user.id,
             receiver: receiverId,
             senderSkillPost: finalSenderSkillPostId,
             receiverSkillPost: receiverSkillPostId,
@@ -67,7 +67,7 @@ router.post('/request', verifyToken, async (req, res) => {
             });
         }
         const newReq = new BarterRequest({
-            sender: req.user.id,
+            sender: req.user._id? req.user._id:req.user.id,
             receiver: receiverId,
             senderSkillPost: finalSenderSkillPostId,
             receiverSkillPost: receiverSkillPostId,
@@ -111,11 +111,14 @@ router.post('/respond-barter', verifyToken, async (req, res) => {
 
 router.get('/my-requests', verifyToken, async (req, res) => {
     try {
-        const sent = await BarterRequest.find({ sender: req.user.id })
+        const sent = await BarterRequest.find({ sender: req.user.id? req.user.id: req.user._id })
             .populate('receiver', 'name email')
             .populate('senderSkillPost')
             .populate('receiverSkillPost');
-        const requests = await BarterRequest.find({ receiver: req.user.id, status: 'pending' }).populate('receiver', 'name email').populate('senderSkillPost').populate('receiverSkillPost');
+        const requests = await BarterRequest.find({ receiver: req.user.id? req.user.id: req.user._id}).populate('receiver', 'name email').populate('senderSkillPost').populate('receiverSkillPost');
+        // console.log("received: ",requests);
+        // console.log("Id: ", req.user.id);
+        
         return res.status(200).json({ requests, sent });
     } catch (e) {
         console.log(e);
