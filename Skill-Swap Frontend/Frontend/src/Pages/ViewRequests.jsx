@@ -466,7 +466,7 @@ const ViewRequests = () => {
                         onClick={() =>
                           handleSendRequest(item)
                          }
-                        disabled={ sendingRequest[item._id] || item.userId === user._id}
+                        disabled={ sendingRequest[item._id] || (user && item.userId === (user._id?user._id:user.id))}
                         className="bg-blue-600 hover:bg-blue-700 disabled:opacity-50 disabled:cursor-not-allowed text-white px-6 py-2 rounded-xl transition-colors duration-200 flex items-center space-x-2"
                       >
                         {sendingRequest[item._id] ? (
