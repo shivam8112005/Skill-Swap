@@ -111,7 +111,7 @@ router.post('/register', async (req, res) => {
             return res.status(400).json({ message: 'User already exists' });
         }
          const cookieOption = {
-                    // httpOnly: true,
+                    httpOnly: true,
                     secure: true,
                     sameSite: "None",
                     maxAge: 7 * 24 * 60 * 60 * 1000,
@@ -149,7 +149,7 @@ router.post('/login', async (req, res) => {
         expiresIn: "2w"
     });
      const cookieOption = {
-                    // httpOnly: true,
+                    httpOnly: true,
                     secure: true,
                     sameSite: "None",
                     maxAge: 7 * 24 * 60 * 60 * 1000,
