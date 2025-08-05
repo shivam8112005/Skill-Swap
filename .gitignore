@@ -1,9 +1,12 @@
 # Node modules
-Skill-Swap Backend/node_modules/
-Skill-Swap Frontend/node_modules/
+# Skill-Swap Backend/node_modules/
+# Skill-Swap Frontend/node_modules/
+
+**/node_modules/
 
 # Environment files
 .env
+.env.*
 
 # Logs
 npm-debug.log*
