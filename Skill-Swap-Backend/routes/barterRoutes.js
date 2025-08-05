@@ -1,6 +1,6 @@
 import express from 'express';
 import verifyToken from '../middlewares/verifyToken.js';
-import BarterRequest from '../models/BarterRequest.js';
+import BarterRequest from '../models/barterRequest.js';
 import SkillPost from '../models/skillPost.js';
 
 
