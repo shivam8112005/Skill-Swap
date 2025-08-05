@@ -71,6 +71,7 @@ router.post('/request', verifyToken, async (req, res) => {
             receiver: receiverId,
             senderSkillPost: finalSenderSkillPostId,
             receiverSkillPost: receiverSkillPostId,
+            acceptedAt:null,
         });
 
         await newReq.save();
@@ -228,8 +229,6 @@ console.log("activebarters: ",activeBarters);
    return res.status(500).json({ message: "Server error" });
   }
 });
-
-
 //quick match, negotiate, and cancel barter request
 
 export default router;
