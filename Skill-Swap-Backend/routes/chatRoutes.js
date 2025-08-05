@@ -1,6 +1,6 @@
 import express from 'express';
 // import ChatSession from '../models/chat.model.js';
-import BarterRequest from '../models/BarterRequest.js';
+import BarterRequest from '../models/barterRequest.js';
 import verifyToken from '../middlewares/verifyToken.js';
 
 const router = express.Router();
