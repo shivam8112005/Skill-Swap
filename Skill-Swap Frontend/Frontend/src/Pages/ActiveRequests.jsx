@@ -16,7 +16,7 @@ import {
   TrendingUp,
   History,
 } from "lucide-react"
-
+const BASE_URL = import.meta.env.VITE_API_BASE_URL;
 const ActiveRequests = () => {
   const [loading, setLoading] = useState(true)
   const [error, setError] = useState("")
@@ -39,7 +39,7 @@ const ActiveRequests = () => {
       setError("")
 
       // Check authentication first
-      const authResponse = await fetch("http://localhost:5000/api/users/userprofiledata", {
+      const authResponse = await fetch(`${BASE_URL}users/userprofiledata`, {
         method: "GET",
         headers: {
           "Content-Type": "application/json",
@@ -55,7 +55,7 @@ const ActiveRequests = () => {
     
 
       // Fetch active barters
-      const activeResponse = await fetch("http://localhost:5000/api/barter/active", {
+      const activeResponse = await fetch(`${BASE_URL}barter/active`, {
         method: "GET",
         headers: {
           "Content-Type": "application/json",

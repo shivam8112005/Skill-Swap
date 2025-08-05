@@ -22,6 +22,7 @@ import { useNavigate } from "react-router-dom"
 // import jwtDecode from "jwt-decode";
 import { jwtDecode } from "jwt-decode";
 
+const BASE_URL = import.meta.env.VITE_API_BASE_URL;
 
 const ViewRequests = () => {
   const [loading, setLoading] = useState(true)
@@ -78,7 +79,7 @@ const ViewRequests = () => {
     try {
       setLoading(true)
       setError("")
-      const response = await fetch("http://localhost:5000/api/barter/getBarter", {
+      const response = await fetch(`${BASE_URL}barter/getBarter`, {
         method: "GET",
         headers: {
           "Content-Type": "application/json",
@@ -107,7 +108,7 @@ const ViewRequests = () => {
   const fetchUserSkillPosts = async () => {
     try {
       setLoadingUserPosts(true)
-      const response = await fetch("http://localhost:5000/api/skill/my-skillposts", {
+      const response = await fetch(`${BASE_URL}skill/my-skillposts`, {
         method: "GET",
         headers: {
           "Content-Type": "application/json",
@@ -264,7 +265,7 @@ const ViewRequests = () => {
           barterDateTime: requestForm.barterDateTime,
         }
 
-         const response = await fetch("http://localhost:5000/api/skill/postskill", {
+         const response = await fetch(`${BASE_URL}skill/postskill`, {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
@@ -283,7 +284,7 @@ const ViewRequests = () => {
       requestData.senderSkillPostId = result.skill._id
       }
 
-      const response = await fetch("http://localhost:5000/api/barter/request", {
+      const response = await fetch(`${BASE_URL}barter/request`, {
         method: "POST",
         headers: {
           "Content-Type": "application/json",

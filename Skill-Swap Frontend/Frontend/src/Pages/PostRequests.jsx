@@ -14,6 +14,7 @@ import {
   CheckCircle,
   RefreshCw,
 } from "lucide-react"
+const BASE_URL = import.meta.env.VITE_API_BASE_URL;
 
 const PostRequests = () => {
   const [formData, setFormData] = useState({
@@ -45,7 +46,7 @@ const PostRequests = () => {
       setError("")
 
       // Try to make an authenticated request to check if user is logged in
-      const response = await fetch("http://localhost:5000/api/users/userprofiledata", {
+      const response = await fetch(`${BASE_URL}users/userprofiledata`, {
         method: "GET",
         headers: {
           "Content-Type": "application/json",
@@ -86,7 +87,7 @@ const PostRequests = () => {
     setSuccess(false)
 
     try {
-      const response = await fetch("http://localhost:5000/api/skill/postskill", {
+      const response = await fetch(`${BASE_URL}skill/postskill`, {
         method: "POST",
         headers: {
           "Content-Type": "application/json",

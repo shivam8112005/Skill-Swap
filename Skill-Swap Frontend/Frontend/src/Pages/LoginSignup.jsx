@@ -6,6 +6,7 @@ import { useNavigate } from "react-router-dom"
 import toast from 'react-hot-toast'
 import app  from '../firebase'
 import axios from 'axios'
+const BASE_URL = import.meta.env.VITE_API_BASE_URL;
 
 const LoginSignup = () => {
     const [isLogin, setIsLogin] = useState(true)
@@ -94,7 +95,7 @@ const LoginSignup = () => {
     //       password: formData.password
     //   }
     // );
-    const response=await fetch("http://localhost:5000/api/auth/register", {
+    const response=await fetch(`${BASE_URL}auth/register`, {
                 method: 'POST',
                 headers: {
                     'Content-Type': 'application/json'
@@ -119,7 +120,7 @@ const LoginSignup = () => {
 
  async function loginUser() {
   try {
-    const response =  await fetch("http://localhost:5000/api/auth/login", {
+    const response =  await fetch(`${BASE_URL}auth/login`, {
                 method: 'POST',
                 headers: {
                     'Content-Type': 'application/json'

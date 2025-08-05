@@ -77,6 +77,7 @@ import {
   AlertCircle,
   LogOut
 } from "lucide-react"
+const BASE_URL = import.meta.env.VITE_API_BASE_URL;
 
 const Profile = () => {
   const [userData, setUserData] = useState({
@@ -115,18 +116,24 @@ const Profile = () => {
   const fetchUserProfile = async () => {
     try {
       setLoading(true)
-      const response = await fetch("http://localhost:5000/api/users/userprofile", {
+      console.log('cookie: ', document.cookie);
+      
+      const response = await fetch(`${BASE_URL}users/userprofile`, {
         method: 'GET',
+        credentials: 'include',
          headers: {
           "Content-Type": "application/json",
-          "Authorization": `${document.cookie}`
+          // "Authorization": `${document.cookie}`
         },
-        credentials: 'include'
+        
       })
-
-      if (!response.ok) {
-        console.log("Failed to fetch profile data")
-      }
+       const text = await response.text() // read raw text first
+    console.log("Raw response text:", text)
+      console.log('fetched user profile response: ', text);
+      
+      // if (!response.ok) {
+      //   console.log("Failed to fetch profile data")
+      // }
 
       const data = await response.json()
       console.log(data)
@@ -144,7 +151,7 @@ const Profile = () => {
     }
   }
 const handleLogout=async () => {
-    await fetch("http://localhost:5000/api/users/logout", {
+    await fetch(`${BASE_URL}users/logout`, {
       method: "GET",
       credentials: "include", // Important to include cookies
     });
@@ -166,7 +173,7 @@ const handleLogout=async () => {
   const handleSave = async () => {
     try {
       setSaving(true)
-      const response = await fetch("http://localhost:5000/api/users/profileUpdate", {
+      const response = await fetch(`${BASE_URL}users/profileUpdate`, {
         method: "PUT",
         headers: {
           "Content-Type": "application/json",

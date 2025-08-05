@@ -121,6 +121,7 @@ import {
   User,
   Loader,
 } from "lucide-react"
+const BASE_URL = import.meta.env.VITE_API_BASE_URL;
 
 function SkillPostDetail() {
   const { id } = useParams() // get post id from URL
@@ -136,7 +137,7 @@ function SkillPostDetail() {
       try {
         setLoading(true)
         console.log(id)
-        const res = await axios.get(`http://localhost:5000/api/skill/skillpost/${id}`)
+        const res = await axios.get(`${BASE_URL}skill/skillpost/${id}`)
         setPost(res.data)
         setError(null)
       } catch (err) {

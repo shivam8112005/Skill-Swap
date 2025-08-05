@@ -19,6 +19,7 @@ import {
   Award,
   TrendingUp,
 } from "lucide-react"
+const BASE_URL = import.meta.env.VITE_API_BASE_URL;
 
 const MyRequests = () => {
   const [loading, setLoading] = useState(true)
@@ -39,7 +40,7 @@ const MyRequests = () => {
       setLoading(true)
       setError("")
 
-      const response = await fetch("http://localhost:5000/api/barter/my-requests", {
+      const response = await fetch(`${BASE_URL}barter/my-requests`, {
         method: "GET",
         headers: {
           "Content-Type": "application/json",
@@ -70,7 +71,7 @@ const MyRequests = () => {
 
   const handleStatusUpdate = async (requestId, newStatus) => {
     try {
-      const response = await fetch(`http://localhost:5000/api/barter/request/${requestId}`, {
+      const response = await fetch(`${BASE_URL}barter/request/${requestId}`, {
         method: "PUT",
         headers: {
           "Content-Type": "application/json",
