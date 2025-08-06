@@ -84,9 +84,9 @@ console.log(name, email)
                 }
 
                 const cookieOption = {
-                    // httpOnly: true,
-                    secure: true,
-                    sameSite: "None",
+                    httpOnly: true,
+                    secure: false,
+                    sameSite: "LAX",
                     maxAge: 7 * 24 * 60 * 60 * 1000,
                     path: "/",
                 };
@@ -111,9 +111,9 @@ router.post('/register', async (req, res) => {
             return res.status(400).json({ message: 'User already exists' });
         }
          const cookieOption = {
-                    // httpOnly: true,
-                    secure: true,
-                    sameSite: "None",
+                    httpOnly: true,
+                    secure: false,
+                    sameSite: "LAX",
                     maxAge: 7 * 24 * 60 * 60 * 1000,
                     path: "/",
                 };
@@ -151,7 +151,7 @@ router.post('/login', async (req, res) => {
      const cookieOption = {
                     httpOnly: true,
                     secure: false,
-                    sameSite: "None",
+                    sameSite: "LAX",
                     maxAge: 7 * 24 * 60 * 60 * 1000,
                     path: "/",
                 };
