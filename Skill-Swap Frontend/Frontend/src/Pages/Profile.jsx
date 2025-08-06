@@ -118,7 +118,7 @@ const Profile = () => {
       setLoading(true)
       console.log('cookie: ', document.cookie);
       
-      const response = await fetch(`${BASE_URL}users/userprofile`, {
+      const response = await fetch(`${import.meta.env.VITE_API_URL}/users/userprofile`, {
         method: 'GET',
         credentials: 'include',
          headers: {
@@ -127,16 +127,16 @@ const Profile = () => {
         },
         
       })
-       const text = await response.text() // read raw text first
-    console.log("Raw response text:", text)
-      console.log('fetched user profile response: ', text);
+      //  const text = await response.text() // read raw text first
+    // console.log("Raw response text:", text)
+    //   console.log('fetched user profile response: ', text);
       
       // if (!response.ok) {
       //   console.log("Failed to fetch profile data")
       // }
 
       const data = await response.json()
-      console.log(data)
+      console.log('user data: ',data)
       setUserData(data.user)
       setEditData({
         skills: [...data.user.skills],

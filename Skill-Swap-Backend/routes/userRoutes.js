@@ -6,7 +6,7 @@ const router = express.Router();
 router.post('/register', registerUser);
 router.get('/userprofile', verifyToken, async(req, res) => {
    const userId=req.user.id?req.user.id:req.user._id;
-  console.log(userId);
+  console.log("user Id: ", userId);
   
     const user = await User.findById( userId);
     console.log(user);

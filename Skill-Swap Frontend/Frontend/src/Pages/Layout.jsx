@@ -17,6 +17,7 @@ const Layout = () => {
     const handleClick=()=>{
         // console.log(document.cookie," dsfhgweukfhierhngherkuhgijeriogjpoerkg;oerlgergherh");
         // console.log( document.cookie,' ejafbioewhfiohewiofhioewnfkl');
+        console.log("cookie: ",document.cookie);
         
         if(!getCookie("token"))navigate('/login-signup');
             else navigate('/profile');

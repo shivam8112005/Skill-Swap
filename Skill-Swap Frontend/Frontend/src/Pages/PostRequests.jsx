@@ -46,13 +46,13 @@ const PostRequests = () => {
       setError("")
 
       // Try to make an authenticated request to check if user is logged in
-      const response = await fetch(`${BASE_URL}users/userprofiledata`, {
-        method: "GET",
-        headers: {
-          "Content-Type": "application/json",
-        },
-        credentials: "include",
-      })
+      // const response = await fetch(`${BASE_URL}users/userprofiledata`, {
+      //   method: "GET",
+      //   headers: {
+      //     "Content-Type": "application/json",
+      //   },
+      //   credentials: "include",
+      // })
 
       if (!getCookie('token')) {
         setIsAuthenticated(false)

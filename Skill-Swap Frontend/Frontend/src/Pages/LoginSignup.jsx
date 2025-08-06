@@ -112,7 +112,6 @@ const LoginSignup = () => {
     }
     console.log("Register successful:", response.data);
     return response
-    // You can use response.data.token, etc.
   } catch (error) {
     console.error("Error registering user:", error.response?.data || error.message);
   }
@@ -120,6 +119,7 @@ const LoginSignup = () => {
 
  async function loginUser() {
   try {
+    const VITE_URL=import.meta.env.VITE_API_URL;
     const response =  await fetch(`${BASE_URL}auth/login`, {
                 method: 'POST',
                 headers: {
@@ -127,15 +127,15 @@ const LoginSignup = () => {
                 },
                 credentials: 'include',
                 body: JSON.stringify({
-                     name: formData.username,    // your backend expects 'name'
+                     name: formData.username,    
           email: formData.email,
           password: formData.password
                 }),
             });
 
-   
-    console.log("Register successful:", response.data);
-    return response;
+      const data = await response.json();
+    console.log("Login successful............:", data);
+    return data;
     
   } catch (error) {
     console.error("Error registering user:", error.response?.data || error.message);
@@ -159,6 +159,8 @@ const LoginSignup = () => {
             
            }
         }if(isLogin){
+            console.log('inside login....');
+            
             if( loginUser().status ==200 |201){
             navigate('/')
            }else{
@@ -195,9 +197,9 @@ const LoginSignup = () => {
 
         try {
             const resultFromGoogle = await signInWithPopup(auth, provider)
-            console.log(`${API_URL}/auth/google`);
+            console.log(`google auth api: ${BASE_URL}auth/google`);
             
-            const res = await fetch(`${API_URL}/auth/google`, {
+            const res = await fetch(`${BASE_URL}auth/google`, {
                 method: 'POST',
                 headers: {
                     'Content-Type': 'application/json'
@@ -213,17 +215,18 @@ const LoginSignup = () => {
             console.log(data);
             localStorage.setItem('userId', data.user._id)
             // if (!data.success) {
-            //     toast.error(data.message || 'Failed to authenticate with Google');
-            //     return;
-            // }
-
-            if (data.status === 200 | 201) {
-                toast.success(data.message)
-
-                console.log("helooooooooooooooooooo");
+                //     toast.error(data.message || 'Failed to authenticate with Google');
+                //     return;
+                // }
                 
-                navigate('/')
-            }
+                if (data.status === 200 | 201) {
+                    toast.success(data.message)
+                    
+                    console.log("helooooooooooooooooooo");
+                    
+                    navigate('/')
+                }
+                return data;
         } catch (error) {
             console.log("error", error)
             toast.error(error.message) // Error while closing the popup of google by client solve left
