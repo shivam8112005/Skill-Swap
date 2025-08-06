@@ -149,7 +149,7 @@ router.post('/login', async (req, res) => {
         expiresIn: "2w"
     });
      const cookieOption = {
-                    // httpOnly: true,
+                    httpOnly: true,
                     secure: true,
                     sameSite: "None",
                     maxAge: 7 * 24 * 60 * 60 * 1000,
