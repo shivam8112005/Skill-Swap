@@ -113,7 +113,7 @@ const LoginSignup = () => {
     console.log("Register successful:", response.data);
     return response
   } catch (error) {
-    console.error("Error registering user:", error.response?.data || error.message);
+    console.log("Error registering user:", error);
   }
 }
 

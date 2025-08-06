@@ -85,8 +85,8 @@ console.log(name, email)
 
                 const cookieOption = {
                     httpOnly: true,
-                    secure: false,
-                    sameSite: "LAX",
+                    secure: true,
+                    sameSite: "None",
                     maxAge: 7 * 24 * 60 * 60 * 1000,
                     path: "/",
                 };
@@ -112,8 +112,8 @@ router.post('/register', async (req, res) => {
         }
          const cookieOption = {
                     httpOnly: true,
-                    secure: false,
-                    sameSite: "LAX",
+                    secure: true,
+                    sameSite: "None",
                     maxAge: 7 * 24 * 60 * 60 * 1000,
                     path: "/",
                 };
