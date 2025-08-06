@@ -17,10 +17,12 @@ const Layout = () => {
     const handleClick=()=>{
         // console.log(document.cookie," dsfhgweukfhierhngherkuhgijeriogjpoerkg;oerlgergherh");
         // console.log( document.cookie,' ejafbioewhfiohewiofhioewnfkl');
-        console.log("cookie: ",document.cookie);
+        // console.log("cookie layout.jsx: ",document.cookie);
         
-        if(!getCookie("token"))navigate('/login-signup');
-            else navigate('/profile');
+        // if(!getCookie("token"))navigate('/login-signup');
+        //     else navigate('/profile');
+
+        navigate('/profile');
 
     }
     return (

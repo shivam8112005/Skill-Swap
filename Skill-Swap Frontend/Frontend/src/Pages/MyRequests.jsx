@@ -37,6 +37,8 @@ const MyRequests = () => {
 
   const checkAuthAndFetchRequests = async () => {
     try {
+      console.log('inside checkAuthAndFetchRequests');
+      
       setLoading(true)
       setError("")
 
