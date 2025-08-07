@@ -9,7 +9,7 @@ export default function setupSocket(server) {
   
   const io = new Server(server, {
     cors: {
-      origin: ['http://localhost:5173', 'http://localhost:3001', 'https://skill-swap-rho-ecru.vercel.app/'], 
+      origin: ['http://localhost:5173', 'http://localhost:3001', 'https://skill-swap-rho-ecru.vercel.app'], 
       credentials: true,
     }
   });
@@ -18,7 +18,7 @@ export default function setupSocket(server) {
     console.log(`Socket.IO: User Connected: ${socket.id}`);
 
     socket.on("join_room", async (data) => {
-      const { barterId, userId } = data; // Expecting an object with barterId and userId
+      const { barterId, userId } = data; 
       if (!barterId || !userId) {
         console.error("Socket.IO: join_room missing barterId or userId", data);
         return;
@@ -27,7 +27,7 @@ export default function setupSocket(server) {
       console.log(`Socket.IO: User ${userId} joined room: ${barterId}`);
 
       try {
-        // Fetch chat history for this barterId
+        
         const history = await Message.find({ barterId }).sort({ timestamp: 1 });
         console.log(`Socket.IO: Emitting chat_history for room ${barterId}, messages count: ${history.length}`);
         socket.emit("chat_history", history); // Send history to the joining user
