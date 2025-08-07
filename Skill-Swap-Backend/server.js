@@ -25,13 +25,6 @@ const allowedOrigins = [
 ];
 app.use(express.json());
 
-// app.use(cors({
-//   origin: '*',
-//   credentials: true, // Allow cookies or auth headers
-//   allowedHeaders: ["Content-Type", "Authorization"],
-//   methods: ["GET", "POST", "PUT", "DELETE", "OPTIONS"],
-// }));
-
 app.use(cors({
   origin: 'http://localhost:5173', // no wildcard
   credentials: true,
