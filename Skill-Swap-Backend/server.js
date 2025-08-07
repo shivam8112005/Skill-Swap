@@ -41,7 +41,7 @@ app.use((req, res, next) => {
 app.use(cookieParser());
 
 
-const server = http.createServer(app); // <---- this creates the HTTP server
+const server = http.createServer(app); 
 socket(server);
 const userSocketMap = {};
 
