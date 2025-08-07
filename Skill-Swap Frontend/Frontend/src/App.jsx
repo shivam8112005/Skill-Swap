@@ -4,7 +4,7 @@ import viteLogo from '/vite.svg'
 import './App.css'
 import Home from './Pages/Home'
 import ActiveRequests from './Pages/ActiveRequests'
-import Chat from './Pages/Chat'
+// import Chat from './Pages/Chat'
 import PostRequests from './Pages/PostRequests'
 import Profile from './Pages/Profile'
 import ViewRequests from './Pages/ViewRequests'
@@ -14,6 +14,7 @@ import LoginSignup from './Pages/LoginSignup'
 import SkillPostDetail from './Pages/SkillPostDetail'
 import UserProfile from './Pages/UserProfile'
 import MyRequests from './Pages/MyRequests'
+import Chat from './Pages/Chat'
 // import Auth from './Pages/Auth'
 // import ChatRoom from './components/ChatRoom';
 // import { Routes, Route } from 'react-router-dom';
@@ -53,6 +54,7 @@ function App() {
             <Route path="/skillpost/:id" element={<SkillPostDetail />} />
             <Route path="/profile/:id" element={<UserProfile />} />
             <Route path="/my-requests" element={<MyRequests />} />
+            <Route path="/chat" element={<Chat />} />
           </Route>
           {/* <Route path='/' element={<Home/>}></Route>
         <Route path='/chat' element={<Chat/>}/>
