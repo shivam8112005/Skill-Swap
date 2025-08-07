@@ -42,5 +42,9 @@
 
 ---
 
-## 📦 Folder Structure
+## 🔗 Demo
+
+🌐 **Live App**: [https://skill-swap-rho-ecru.vercel.app](https://skill-swap-rho-ecru.vercel.app)
+
+---
 
