@@ -7,7 +7,7 @@ import { ArrowLeft, Loader, LogIn, Send, MessageCircle } from 'lucide-react';
 const RENDER_BASE_URL = import.meta.env.VITE_RENDER_API_BASE_URL;
 console.log("url:  ",RENDER_BASE_URL);
 
-const socket = io(RENDER_BASE_URL); // Use BASE_URL for consistency
+const socket = io(RENDER_BASE_URL); 
 
 const Chat = () => {
   const [message, setMessage] = useState('');

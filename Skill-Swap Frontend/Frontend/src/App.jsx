@@ -15,6 +15,7 @@ import SkillPostDetail from './Pages/SkillPostDetail'
 import UserProfile from './Pages/UserProfile'
 import MyRequests from './Pages/MyRequests'
 import Chat from './Pages/Chat'
+import VideoCallPage from './Pages/VideoCallPage'
 // import Auth from './Pages/Auth'
 // import ChatRoom from './components/ChatRoom';
 // import { Routes, Route } from 'react-router-dom';
@@ -55,6 +56,7 @@ function App() {
             <Route path="/profile/:id" element={<UserProfile />} />
             <Route path="/my-requests" element={<MyRequests />} />
             <Route path="/chat" element={<Chat />} />
+            <Route path="/call/:roomId" element={<VideoCallPage />} />
           </Route>
           {/* <Route path='/' element={<Home/>}></Route>
         <Route path='/chat' element={<Chat/>}/>

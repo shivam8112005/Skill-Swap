@@ -1,5 +1,5 @@
 import { useState, useEffect } from "react"
-import { Link } from "react-router-dom"
+import { Link, useNavigate } from "react-router-dom"
 import { ArrowLeft, MessageCircle, Video, Calendar, Clock, User, CheckCircle, AlertCircle, Loader, LogIn, RefreshCw, Award, TrendingUp, History } from 'lucide-react'
 
 const BASE_URL = import.meta.env.VITE_API_BASE_URL;
@@ -12,6 +12,7 @@ const ActiveRequests = () => {
   const [pastBarters, setPastBarters] = useState([]) // This will be populated from a new API endpoint
   const [activeTab, setActiveTab] = useState("active")
   const [currentUserId, setCurrentUserId] = useState(null); // To store the logged-in user's ID
+  const navigate = useNavigate();
 
   useEffect(() => {
     checkAuthAndFetchBarters()
@@ -56,6 +57,8 @@ const ActiveRequests = () => {
 
       if (activeResponse.ok) {
         const activeData = await activeResponse.json()
+        console.log("activeData: ",activeData);
+        
         setActiveBarters(activeData || [])
       } else {
         throw new Error("Failed to fetch active barters")
@@ -353,7 +356,7 @@ const ActiveRequests = () => {
                             <span>Message Partner</span>
                           </Link>
                           <button
-                            onClick={() => handleVideoCall(barter)}
+                            onClick={() => navigate(`/call/${barter._id.toString()}`)}
                             className="bg-green-600 hover:bg-green-700 text-white px-6 py-2 rounded-xl transition-colors duration-200 flex items-center space-x-2"
                           >
                             <Video className="w-4 h-4" />
