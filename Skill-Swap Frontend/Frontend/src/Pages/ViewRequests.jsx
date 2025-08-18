@@ -40,6 +40,8 @@ const ViewRequests = () => {
   const [userSkillPosts, setUserSkillPosts] = useState([])
   const [selectedExistingPost, setSelectedExistingPost] = useState("")
   const [loadingUserPosts, setLoadingUserPosts] = useState(false)
+  const [isAuthenticated, setIsAuthenticated] = useState(false)
+  const [userId, setUserId] = useState("");
   const navigate = useNavigate()
   const [requestForm, setRequestForm] = useState({
     type: "offer",
@@ -50,11 +52,46 @@ const ViewRequests = () => {
   })
 
   useEffect(() => {
+    checkAuthAndFetchProfile()
     fetchBarter()
   }, []);
 
 
-    
+     const checkAuthAndFetchProfile = async () => {
+    try {
+      setLoading(true)
+      setError("")
+      
+      const response = await fetch(`${BASE_URL}users/userprofile`, {
+        method: 'GET',
+        headers: {
+          "Content-Type": "application/json",
+        },
+        credentials: 'include',
+      })
+
+      if (response.status === 401) {
+        setIsAuthenticated(false)
+        return
+      }
+
+      if (!response.ok) {
+        throw new Error("Failed to fetch profile data")
+      }
+
+      const data = await response.json()
+      console.log('user data: ', data)
+      setUserId(data.user._id)
+      
+      setIsAuthenticated(true)
+    } catch (err) {
+      setError("Failed to load profile data. Please try again.")
+      console.error("Error fetching profile:", err)
+    } finally {
+      setLoading(false)
+      // console.log("user: ", userData);
+    }
+  }
 
  const getUserFromCookie = () => {
   const token = document.cookie
@@ -62,9 +99,14 @@ const ViewRequests = () => {
     .find(row => row.startsWith("token="))
     ?.split("=")[1];
 
+    console.log("token: ", token);
+    
+
   if (!token) return null;
 
   try {
+    console.log("user jwt: ",jwtDecode(token));
+    
     return jwtDecode(token);
   } catch (err) {
     console.error("Invalid token", err);
@@ -467,7 +509,7 @@ const ViewRequests = () => {
                         onClick={() =>
                           handleSendRequest(item)
                          }
-                        disabled={ sendingRequest[item._id] || (user && item.userId === (user._id?user._id:user.id))}
+                        disabled={ sendingRequest[item._id] || (item.userId === userId)}
                         className="bg-blue-600 hover:bg-blue-700 disabled:opacity-50 disabled:cursor-not-allowed text-white px-6 py-2 rounded-xl transition-colors duration-200 flex items-center space-x-2"
                       >
                         {sendingRequest[item._id] ? (
