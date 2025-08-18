@@ -180,6 +180,8 @@ const { id } = req.params;
     request.status = status;
     if (status === 'accepted') {
       request.acceptedAt = new Date();
+       await SkillPost.findByIdAndUpdate(request.senderSkillPost, { status: 'accepted' });
+      await SkillPost.findByIdAndUpdate(request.receiverSkillPost, { status: 'accepted' });
     }
 
     await request.save();

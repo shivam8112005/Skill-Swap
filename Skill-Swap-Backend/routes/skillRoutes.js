@@ -29,7 +29,8 @@ router.post('/postskill',verifyToken, async(req, res)=>{
             skillDescription,
             requiredSkills,
             providedSkills,
-            barterDateTime
+            barterDateTime,
+            status: "pending",
         });
         await newSkillPost.save();
         return res.status(200).json({message:'skill posted successfully.', skill:newSkillPost});
@@ -40,7 +41,7 @@ router.post('/postskill',verifyToken, async(req, res)=>{
 });
 router.get('/allskillposts', async (req, res) => {
 
-  const posts = await SkillPost.find().populate('userId', 'name email');
+  const posts = await SkillPost.find({status:'pending'}).populate('userId', 'name email');
   console.log(posts);
   
   res.status(200).json(posts);

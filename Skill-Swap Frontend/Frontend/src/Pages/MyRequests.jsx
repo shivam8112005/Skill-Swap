@@ -82,6 +82,10 @@ const MyRequests = () => {
         body: JSON.stringify({ status: newStatus }),
       })
 
+      if(newStatus === "accepted"){
+        
+      }
+
       if (response.ok) {
         // Refresh the requests
         checkAuthAndFetchRequests()

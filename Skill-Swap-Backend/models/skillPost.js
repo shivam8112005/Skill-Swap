@@ -31,5 +31,10 @@ const skillPostSchema= mongoose.Schema({
         type:Date,
         default:Date.now
     },
+    status:{
+    type: String,
+    enum:['pending', 'accepted'],
+    default: 'pending'
+    },
 })
 export default mongoose.model('SkillPost', skillPostSchema);
