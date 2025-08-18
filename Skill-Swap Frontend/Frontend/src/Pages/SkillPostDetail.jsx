@@ -397,13 +397,13 @@ function SkillPostDetail() {
                     <span>View Profile</span>
                   </Link>
 
-                  <button
+                  {/* <button
                     onClick={handleContact}
                     className="w-full bg-green-500 hover:bg-green-600 text-white py-3 rounded-xl font-semibold transition-all duration-300 flex items-center justify-center space-x-2"
                   >
                     <MessageCircle className="w-5 h-5" />
                     <span>Contact User</span>
-                  </button>
+                  </button> */}
                 </div>
               )}
             </div>

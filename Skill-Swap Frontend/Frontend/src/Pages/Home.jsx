@@ -27,10 +27,12 @@ import {
   Calculator,
   Briefcase,
 } from "lucide-react"
+import { useNavigate } from "react-router-dom"
 
 const Home = () => {
   const [isSidebarOpen, setIsSidebarOpen] = useState(false)
   const [isModalOpen, setIsModalOpen] = useState(false)
+  const navigate = useNavigate();
 
   const featuredSkills = [
     { name: "Web Development", requests: 24, rating: 4.8, trend: "+12%", color: "bg-blue-500" },
@@ -122,11 +124,11 @@ const Home = () => {
               click away.
             </p>
             <div className="flex flex-col sm:flex-row gap-4 justify-center">
-              <button className="bg-white text-blue-700 hover:bg-blue-50 font-semibold px-8 py-3 rounded-xl shadow-lg hover:shadow-xl transition-all duration-300 transform hover:-translate-y-1 flex items-center justify-center">
+              <button onClick={()=>navigate('/view-requests')} className="bg-white text-blue-700 hover:bg-blue-50 font-semibold px-8 py-3 rounded-xl shadow-lg hover:shadow-xl transition-all duration-300 transform hover:-translate-y-1 flex items-center justify-center">
                 <Zap className="w-5 h-5 mr-2" />
                 Start Bartering
               </button>
-              <button className="border border-white/30 text-white hover:bg-white/10 font-semibold px-8 py-3 rounded-xl backdrop-blur-sm bg-transparent flex items-center justify-center transition-all duration-300">
+              <button onClick={()=>navigate('/view-requests')} className="border border-white/30 text-white hover:bg-white/10 font-semibold px-8 py-3 rounded-xl backdrop-blur-sm bg-transparent flex items-center justify-center transition-all duration-300">
                 Explore Skills
                 <ArrowRight className="w-5 h-5 ml-2" />
               </button>

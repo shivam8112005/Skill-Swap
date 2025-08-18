@@ -29,7 +29,7 @@ const Navigation = (props) => {
     { id: "my-requests", label: "My Requests", icon: Inbox },
     { id: "active-requests", label: "Active Barter Requests", icon: Activity },
     { id: "chat", label: "Chat with Active Barter", icon: MessageCircle },
-    { id: "profile", label: "Profile Page", icon: User },
+    // { id: "profile", label: "Profile Page", icon: User },
     {
       id: "text-quiz",
       label: "Summarize Text & Generate Quiz",

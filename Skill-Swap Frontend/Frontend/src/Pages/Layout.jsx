@@ -3,12 +3,15 @@ import { Outlet, useNavigate } from 'react-router-dom';
 // import Navigation from './Components/Navigation';
 import Navigation from '../Components/Navigation';
 import { Menu, User, X } from 'lucide-react';
-
+import { useLocation } from "react-router-dom";
 const Layout = () => {
-    const [activeTab, setActiveTab] = useState('home');
+    const location = useLocation();
+    const currentPath = location.pathname;
+    const [activeTab, setActiveTab] = useState(currentPath.substring(1)===""?"home":currentPath.substring(1));
     const [isSidebarOpen, setIsSidebarOpen] = useState(false);
     const [isModalOpen, setIsModalOpen] = useState(false);
-    const navigate = useNavigate()
+    const navigate = useNavigate();
+
     function getCookie(name) {
   const value = `; ${document.cookie}`;
   const parts = value.split(`; ${name}=`);
@@ -41,7 +44,7 @@ const Layout = () => {
             {/* Main Content */}
             <div className="flex-1 flex flex-col">
                 {/* Header */}
-                <header className="bg-white border-b border-gray-200 p-4">
+                <header className="bg-white border-b border-gray-200 p-4 top-0 fixed w-full z-50">
                     <div className="flex items-center justify-between">
                         {/* <button
                             onClick={() => setIsSidebarOpen(!isSidebarOpen)}
@@ -61,7 +64,7 @@ const Layout = () => {
                 </header>
 
                 {/* This renders each page */}
-                <main className="flex-1 p-6 overflow-y-auto">
+                <main className="flex-1 p-6 overflow-y-auto pt-20   ">
                     <Outlet />
                 </main>
             </div>
