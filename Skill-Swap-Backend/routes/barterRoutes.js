@@ -8,7 +8,7 @@ const router = express.Router();
 
 router.get('/getBarter', async (req, res) => {
     try {
-        const barter = await SkillPost.find()
+        const barter = await SkillPost.find({status:'pending'})
         if (barter) {
             return res.status(200).json({status: 200, barter: barter})
         }
