@@ -113,10 +113,10 @@ router.post('/respond-barter', verifyToken, async (req, res) => {
 router.get('/my-requests', verifyToken, async (req, res) => {
     try {
         const sent = await BarterRequest.find({ sender: req.user.id? req.user.id: req.user._id })
-            .populate('receiver', 'name email')
+            .populate('receiver', 'name email').populate('receiver', 'name email')
             .populate('senderSkillPost')
             .populate('receiverSkillPost');
-        const requests = await BarterRequest.find({ receiver: req.user.id? req.user.id: req.user._id}).populate('receiver', 'name email').populate('senderSkillPost').populate('receiverSkillPost');
+        const requests = await BarterRequest.find({ receiver: req.user.id? req.user.id: req.user._id}).populate('receiver', 'name email').populate('senderSkillPost').populate('receiverSkillPost').populate('receiver', 'name email');
         // console.log("received: ",requests);
         // console.log("Id: ", req.user.id);
         

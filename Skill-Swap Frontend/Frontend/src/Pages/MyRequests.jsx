@@ -297,7 +297,10 @@ const MyRequests = () => {
         <div className="space-y-6">
           {activeTab === "received" ? (
             filteredRequests(requests).length > 0 ? (
-              filteredRequests(requests).map((request) => (
+              filteredRequests(requests).map((request) => {
+                console.log(request);
+                
+                return(
                 <div
                   key={request._id}
                   className="bg-white rounded-2xl shadow-lg border border-gray-100 hover:shadow-xl transition-all duration-300 overflow-hidden"
@@ -314,7 +317,7 @@ const MyRequests = () => {
                           </span>
                         </div>
                         <p className="text-gray-600 mb-2">
-                          <span className="font-medium">From:</span> {request.receiver?.name || "Unknown User"}
+                          <span className="font-medium">From:</span> {request.sender?.name || "Unknown User"}
                         </p>
                       </div>
                     </div>
@@ -366,8 +369,8 @@ const MyRequests = () => {
                       )}
                     </div>
                   </div>
-                </div>
-              ))
+                </div>)
+})
             ) : (
               <div className="text-center py-16">
                 <div className="w-24 h-24 bg-gray-100 rounded-full flex items-center justify-center mx-auto mb-6">
