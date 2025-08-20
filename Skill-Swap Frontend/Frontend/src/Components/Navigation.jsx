@@ -30,11 +30,11 @@ const Navigation = (props) => {
     { id: "active-requests", label: "Active Swaps", icon: Activity },
     // { id: "chat", label: "Chat with Active Barter", icon: MessageCircle },
     { id: "profile", label: "Profile", icon: User },
-    // {
-    //   id: "text-quiz",
-    //   label: "Summarize Text & Generate Quiz",
-    //   icon: FileText,
-    // },
+    {
+      id: "myskillposts",
+      label: "My SkillPosts",
+      icon: FileText,
+    },
     // { id: 'settings', label: 'Settings', icon: Settings }
   ];
 
