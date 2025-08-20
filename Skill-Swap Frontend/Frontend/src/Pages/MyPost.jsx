@@ -465,7 +465,7 @@ const MyPosts = () => {
                         <CheckCircle className="w-6 h-6 text-green-600" />
                       </div>
                       <div>
-                        <h3 className="text-xl font-bold text-gray-800">Active Post</h3>
+                        <h3 className="text-xl font-bold text-gray-800">Accepted Post</h3>
                         <p className="text-gray-600">Available for barter</p>
                       </div>
                     </div>

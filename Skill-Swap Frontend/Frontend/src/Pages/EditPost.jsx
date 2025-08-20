@@ -43,6 +43,10 @@ const EditPost = () => {
           providedSkills: postData.providedSkills || [],
           barterDateTime: postData.barterDateTime || "",
         })
+        console.log("required skills: ",postData.requiredSkill);
+        console.log("post data: ", postData);
+        
+        
       } else {
         console.error("Failed to fetch post")
         navigate("/my-posts")
@@ -169,7 +173,7 @@ const EditPost = () => {
               <label className="block text-sm font-medium text-gray-700 mb-2">Required Skills</label>
               <input
                 type="text"
-                value={formData.requiredSkills.join(", ")}
+                value={formData.requiredSkills}
                 onChange={(e) => handleSkillsChange(e, "requiredSkills")}
                 className="w-full px-4 py-3 border border-gray-300 rounded-xl focus:ring-2 focus:ring-blue-500 focus:border-transparent transition-all duration-200"
                 placeholder="Enter required skills separated by commas (e.g., JavaScript, React, Node.js)"
@@ -182,7 +186,7 @@ const EditPost = () => {
               <label className="block text-sm font-medium text-gray-700 mb-2">Provided Skills *</label>
               <input
                 type="text"
-                value={formData.providedSkills.join(", ")}
+                value={formData.providedSkills}
                 onChange={(e) => handleSkillsChange(e, "providedSkills")}
                 required
                 className="w-full px-4 py-3 border border-gray-300 rounded-xl focus:ring-2 focus:ring-blue-500 focus:border-transparent transition-all duration-200"
