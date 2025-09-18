@@ -255,7 +255,7 @@ const MyPosts = () => {
                 <span>Refresh</span>
               </button>
               <Link
-                to="/create-post"
+                to="/send-request"
                 className="flex items-center space-x-2 bg-white/20 backdrop-blur-sm hover:bg-white/30 px-4 py-2 rounded-xl transition-colors duration-200"
               >
                 <Plus className="w-5 h-5" />
@@ -318,7 +318,7 @@ const MyPosts = () => {
                 className="w-full pl-10 pr-4 py-3 border border-gray-300 rounded-xl focus:ring-2 focus:ring-blue-500 focus:border-blue-500 outline-none"
               />
             </div>
-            <div className="relative">
+            {/* <div className="relative">
               <Filter className="absolute left-3 top-1/2 transform -translate-y-1/2 text-gray-400 w-5 h-5" />
               <select
                 value={filterStatus}
@@ -330,7 +330,7 @@ const MyPosts = () => {
                 <option value="accepted">Accepted</option>
                 <option value="rejected">Rejected</option>
               </select>
-            </div>
+            </div> */}
           </div>
         </div>
 
@@ -530,13 +530,13 @@ const MyPosts = () => {
                         <Eye className="w-4 h-4" />
                         <span>View Details</span>
                       </button>
-                      <Link
+                      {/* <Link
                         to={`/edit-post/${post._id}`}
                         className="bg-blue-100 hover:bg-blue-200 text-blue-700 px-4 py-2 rounded-xl transition-colors duration-200 flex items-center space-x-2"
                       >
                         <Edit className="w-4 h-4" />
                         <span>Edit</span>
-                      </Link>
+                      </Link> */}
                       <button
                         onClick={() => openDeleteModal(post)}
                         className="bg-red-100 hover:bg-red-200 text-red-700 px-4 py-2 rounded-xl transition-colors duration-200 flex items-center space-x-2"

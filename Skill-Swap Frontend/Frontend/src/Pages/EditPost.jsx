@@ -49,11 +49,11 @@ const EditPost = () => {
         
       } else {
         console.error("Failed to fetch post")
-        navigate("/my-posts")
+        navigate("/myskillposts")
       }
     } catch (error) {
       console.error("Error fetching post:", error)
-      navigate("/my-posts")
+      navigate("/myskillposts")
     } finally {
       setLoading(false)
     }
@@ -94,7 +94,7 @@ const EditPost = () => {
       })
 
       if (response.ok) {
-        navigate("/my-posts")
+        navigate("/myskillposts")
       } else {
         const errorData = await response.json()
         alert(errorData.message || "Failed to update post")
@@ -124,7 +124,7 @@ const EditPost = () => {
         {/* Header */}
         <div className="mb-8">
           <button
-            onClick={() => navigate("/my-posts")}
+            onClick={() => navigate("/myskillposts")}
             className="flex items-center space-x-2 text-gray-600 hover:text-gray-800 transition-colors duration-200 mb-4"
           >
             <ArrowLeft className="w-5 h-5" />
@@ -148,9 +148,9 @@ const EditPost = () => {
                 className="w-full px-4 py-3 border border-gray-300 rounded-xl focus:ring-2 focus:ring-blue-500 focus:border-transparent transition-all duration-200"
               >
                 <option value="">Select post type</option>
-                <option value="offer">Skill Offer</option>
-                <option value="request">Skill Request</option>
-                <option value="exchange">Skill Exchange</option>
+                <option value="offer">Offer</option>
+                <option value="request">Request</option>
+                {/* <option value="exchange">Skill Exchange</option> */}
               </select>
             </div>
 
@@ -212,7 +212,7 @@ const EditPost = () => {
             <div className="flex justify-end space-x-4 pt-6">
               <button
                 type="button"
-                onClick={() => navigate("/my-posts")}
+                onClick={() => navigate("/myskillposts")}
                 className="px-6 py-3 border border-gray-300 text-gray-700 rounded-xl hover:bg-gray-50 transition-colors duration-200 font-medium"
               >
                 Cancel

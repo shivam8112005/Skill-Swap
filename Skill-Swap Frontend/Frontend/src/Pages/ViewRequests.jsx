@@ -162,9 +162,9 @@ const ViewRequests = () => {
         console.log("fetching my skill posts");
         
         const data = await response.json()
-        console.log(data);
+        console.log("my skillposts: ",data);
         
-        setUserSkillPosts(data || [])
+        setUserSkillPosts(data.posts || [])
       } else {
         console.error("Failed to fetch user skill posts")
         setUserSkillPosts([])
