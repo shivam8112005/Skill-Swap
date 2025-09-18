@@ -27,7 +27,7 @@ const Navigation = (props) => {
     { id: "view-requests", label: "Open Swap Requests", icon: Eye },
     { id: "send-request", label: "Post Swap Request", icon: Send },
     { id: "my-requests", label: "My Requests", icon: Inbox },
-    { id: "active-requests", label: "Active Swaps", icon: Activity },
+    { id: "active-requests", label: "My Swaps", icon: Activity },
     // { id: "chat", label: "Chat with Active Barter", icon: MessageCircle },
     { id: "profile", label: "Profile", icon: User },
     {

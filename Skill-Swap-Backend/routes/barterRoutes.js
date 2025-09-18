@@ -195,20 +195,6 @@ const { id } = req.params;
 
 router.get('/active',verifyToken, async (req, res) => {
   try {
-//     const threeDaysAgo = new Date(Date.now() - 3 * 24 * 60 * 60 * 1000); // 3 days in milliseconds
-
-//   const activeBarters = await BarterRequest.find({
-//   status: "accepted",
-//   $or: [
-//     { sender: req.user.id ? req.user.id:req.user._id },
-//     { receiver: req.user.id ? req.user.id:req.user._id }
-//   ]
-// })
-//   .populate("senderSkillPost")
-//   .populate("receiverSkillPost")
-//   .populate("sender")
-//   .populate("receiver");
-
 const threeDaysAgo = new Date(Date.now() - 3 * 24 * 60 * 60 * 1000);
 
 const activeBarters = await BarterRequest.find({
@@ -231,6 +217,33 @@ console.log("activebarters: ",activeBarters);
    return res.status(500).json({ message: "Server error" });
   }
 });
+
+
+router.get('/past',verifyToken, async (req, res) => {
+  try {
+const threeDaysAgo = new Date(Date.now() - 3 * 24 * 60 * 60 * 1000);
+
+const pastBarters = await BarterRequest.find({
+  status: "accepted",
+  createdAt: { $lt: threeDaysAgo },
+  $or: [
+    { sender: req.user.id ? req.user.id : req.user._id },
+    { receiver: req.user.id ? req.user.id : req.user._id }
+  ]
+})
+  .populate("senderSkillPost")
+  .populate("receiverSkillPost")
+  .populate("sender")
+  .populate("receiver");
+console.log("pastbarters: ",pastBarters);
+
+   return res.json(pastBarters);
+  } catch (error) {
+    console.error("Error fetching past barters:", error);
+   return res.status(500).json({ message: "Server error" });
+  }
+});
+
 //quick match, negotiate, and cancel barter request
 
 export default router;

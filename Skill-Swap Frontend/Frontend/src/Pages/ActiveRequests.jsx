@@ -65,7 +65,6 @@ const ActiveRequests = () => {
       }
 
       // Fetch past barters (assuming a /barter/past endpoint exists)
-      // You will need to implement this endpoint on your backend.
       const pastResponse = await fetch(`${BASE_URL}barter/past`, {
         method: "GET",
         headers: {
@@ -76,6 +75,8 @@ const ActiveRequests = () => {
 
       if (pastResponse.ok) {
         const pastData = await pastResponse.json();
+        console.log("past response ok");
+        
         setPastBarters(pastData || []);
       } else {
         console.warn("Failed to fetch past barters, assuming no past barters or endpoint not implemented.");
@@ -191,6 +192,8 @@ const ActiveRequests = () => {
       </div>
     )
   }
+  console.log("activebarters: ",activeBarters);
+  console.log("pastbarters: ",pastBarters);
 
   return (
     <div className="min-h-screen bg-gradient-to-br from-gray-50 via-blue-50/30 to-purple-50/30">
@@ -241,7 +244,7 @@ const ActiveRequests = () => {
               }`}
             >
               <CheckCircle className="w-6 h-6" />
-              <span>Active Barters ({activeBarters.length})</span>
+              <span>Active Swaps ({activeBarters.length})</span>
             </button>
             <button
               onClick={() => setActiveTab("past")}
@@ -252,7 +255,7 @@ const ActiveRequests = () => {
               }`}
             >
               <History className="w-6 h-6" />
-              <span>Past Barters ({pastBarters.length})</span>
+              <span>Past Swaps ({pastBarters.length})</span>
             </button>
           </div>
         </div>
